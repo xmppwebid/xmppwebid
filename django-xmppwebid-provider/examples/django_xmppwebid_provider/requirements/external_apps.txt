@@ -1,0 +1,13 @@
+--requirement=libs.txt
+-f ftp://xmlsoft.org/libxml2/python/libxml2-python-2.6.11.tar.gz
+-f http://www.dnspython.org/kits/1.8.0/dnspython-1.8.0.tar.gz
+
+M2Crypto==0.20.2
+pyOpenSSL==0.10
+pyxmpp==1.0.1
+libxml2-python==2.6.11
+dnspython==1.8.0
+#xmppwebid_provider==0.1
+#xmppwebid_certs==0.1
+django-uni-form==0.6.0
+django-staticfiles==0.1.2

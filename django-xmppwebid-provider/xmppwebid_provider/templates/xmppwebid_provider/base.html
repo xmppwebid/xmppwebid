@@ -1,0 +1,15 @@
+{% extends "xmppwebid_provider/site_base.html" %}
+
+{% load i18n %}
+
+
+{% block rtab_id %}id="xmpp_tab"{% endblock %}
+
+{% block subnav %}
+{%comment%}
+    <ul>
+        <li><a href="{% url xmpp_identity %}">{% trans "Generate XMPP WebID Client Certificate" %}</a></li>
+    </ul>
+{%endcomment%}
+{% endblock %}
+

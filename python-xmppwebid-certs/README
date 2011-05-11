@@ -1,0 +1,1 @@
+Python functions for generate a X509 client certificate for XMPP or HTTP WebID authentication (including WebId and XMPP id at SubjectAltName)

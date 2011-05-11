@@ -1,0 +1,18 @@
+TODO
+  * Module (template/form/model) to generate FOAF, include existing FOAF and certificate public RSA key (like [foaf.me])
+  * views.py: xmpp_identity
+     * REPLACE certification generation saving it on files by mem 
+     * Link the form with the FOAF form
+     * Firefox should ask to import the cert instead of downloading
+     * include FOAF URI in jabber vCard
+     * Include in the form  the password and change xmppwebid_certs to get it from variable/file
+     * is the password file needed or can be substitude by a dummy password to register jabber account?
+  * forms.py: 
+   * create formfrommodels?
+   * create widget to include domain as part of jid?
+  * module to generate ca cert
+  * module to generate jabberd certificate
+  * module for authentication with client certificate
+  * module for authorization based on AIR rules (like [TAAC] does)
+  * create a separate package with project instead of an example inside module?
+  * create Debian package

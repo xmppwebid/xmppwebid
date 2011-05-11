@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+        ServerName yourserver.org
+        WSGIDaemonProcess django_xmppwebid_provider-production user=django_xmppwebid_provider group=django_xmppwebid_provider threads=10 python-path=/srv/django/yourserver.org/django_xmppwebid_provider-env/lib/python2.5/site-packages
+        WSGIProcessGroup django_xmppwebid_provider-production
+        WSGIScriptAlias / /srv/django/yourserver.org/releases/current/examples/django_xmppwebid_provider/deploy/django_xmppwebid_provider.wsgi
+        <Directory /srv/django/yourserver.org/releases/current/examples/django_xmppwebid_provider/deploy>
+            Order deny,allow
+            Allow from all
+        </Directory>
+        ErrorLog /srv/django/yourserver.org/var/log/error.log
+        LogLevel warn
+        CustomLog /srv/django/yourserver.org/var/log/access.log combined
+</VirtualHost>
