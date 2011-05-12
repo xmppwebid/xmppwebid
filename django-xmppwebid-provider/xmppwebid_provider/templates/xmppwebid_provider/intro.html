@@ -11,17 +11,29 @@
   {% endblocktrans %}
 </p>
 <p>
-  {% blocktrans %}
-    It creates Jabber account and 
-    generates the certificate that is installed in the user browser and can 
-    be installed in a Jabber client.
+  {% blocktrans %} 
+    It creates XMPP account and 
+    generates the certificate that is installed in your browser and can also
+    be installed in a XMPP client.
+  {% endblocktrans %}
+</p>
+
+<p>
+  {% blocktrans %} 
+    To use your certificate in XMPP (Jabber )you would need a client that 
+    supports
+    certificates (currently <a href="http://gajim.org/">Gajim</a> v0.14) and a 
+    Jabber server software that supports 
+    <a href="http://xmpp.org/extensions/xep-0178.html">SASL EXTERNAL</a> 
+    authentication without Certificate Authority 
+    (currently <a href="">Jabberd</a> with a patch <a href =""></a>).
   {% endblocktrans %}
 </p>
 
 <p>
     {% blocktrans %}
     For more information about this module and enabled Jabber 
-    servers and clients, see:
+    servers and clients, see the
     <a href="http://xmppwebid.github.com/xmppwebid">xmppwebid</a> project site.
     {% endblocktrans %}
 </p>
