@@ -42,20 +42,44 @@
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/xmppwebid/xmppwebid">xmppwebid</a>
-      <span class="small">by <a href="http://github.com/xmppwebid">xmppwebid</a></span></h1>
-
+    <h1><a href="http://github.com/xmppwebid/xmppwebid">XMPPWebID</a></h1>
+    
     <div class="description">
-      
+      <p>XMPPWebID is a project intended to add 
+      <a href="http://www.w3.org/2005/Incubator/webid/spec/"> WebID</a>
+      authentication to the <a href="http://xmpp.org/">XMPP</a> protocol.
     </div>
-
-    <h2>License</h2>
-<p>GPL3</p>
-<h2>Authors</h2>
-<p>xmppwebid (xmppwebid@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p> (xmppwebid@gmail.com)<br/>      </p>
-
+    
+    <h2>XMPPWebID certificate generator</h2> 
+    <p>XMPPWebID certificate generator is an <a href="http://djangoproject.com/">Django</a> app intended to generate valid
+    certificates for HTPP and XMPP.</p> 
+    <p>It creates XMPP account and generates the certificate that is installed in your
+    browser and can also be installed in a XMPP client.</p> 
+    <p>To use your certificate in XMPP (Jabber) you would need a client that supports
+    user certificates (currently <a href="http://gajim.org/">Gajim</a> v0.14) and a Jabber server software that
+    supports SASL EXTERNAL authentication (<a href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>).</p> 
+    
+    
+    <h2>Technologies</h2>
+    <p><ul> 
+      <li>XMPP protocol</li> 
+      <li>WebID for authentication</li> 
+      <li><a href="http://xmlns.com/foaf/spec/">FOAF</a> ontology for the user WebID profile</li> 
+      <li><a href="http://www.w3.org/ns/auth/cert">Certificate</a> and <a href="http://www.w3.org/ns/auth/rs">RSA</a> vocabularies to associate the user certificate public key to the WebID</li> 
+      <li><a href="http://www.itu.int/rec/T-REC-X.509/en">X509</a> certificates</li> 
+      <li>XMPP <a href="http://xmpp.org/extensions/xep-0077.html">In-Band-Registration</a> extension for account registration</li> 
+      <li><a href="http://tools.ietf.org/html/rfc5246">TLS</a> protocol for secure communications</li> 
+      <li>XMPP <a href="http://xmpp.org/extensions/xep-0178.html">SASL EXTERNAL</a> authentication mechanism</li> 
+      <li><a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> to extract WebID URI, public keys and Jabber account</li> 
+    </ul> </p>
+    
+    <!--<h2>Publications</h2>-->
+    
+    <h2>Install</h2> 
+    <p>To install XMPPWebID  certificate generator see <a href="/xmppwebid/doc/install.html">installation instructions</a></p> 
+    
+    <h2>Documentation</h2>
+    <p>See <a href="/xmppwebid/doc/index.html">documentation</a></p>
 
     <h2>Download</h2>
     <p>
@@ -67,6 +91,20 @@
       by running:
       <pre>$ git clone git://github.com/xmppwebid/xmppwebid</pre>
     </p>
+
+
+    <!--<h2>License</h2>
+    <p>GPLv3</p>
+    
+    <h2>Authors</h2>
+    <p>xmppwebid (xmppwebid@gmail.com)
+    <br/>
+    <br/>      </p>
+    
+    <h2>Contact</h2>
+    <p> (xmppwebid@gmail.com)
+    <br/>      </p>-->
+
 
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/xmppwebid/xmppwebid">xmppwebid/xmppwebid</a>

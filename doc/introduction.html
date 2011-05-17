@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>About XMPPWebID &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to XMPPWebID Certificate Generator’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to XMPPWebID Certificate Generator’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="about-xmppwebid">
+<span id="ref-introduction"></span><h1>About XMPPWebID<a class="headerlink" href="#about-xmppwebid" title="Permalink to this headline">¶</a></h1>
+<p>XMPPWebID is an project intended to add <a class="reference external" href="http://www.w3.org/2005/Incubator/webid/spec/">WebID</a> authentication to the <a class="reference external" href="http://xmpp.org/">XMPP</a>
+protocol.</p>
+<div class="section" id="technologies">
+<h2>Technologies<a class="headerlink" href="#technologies" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>XMPP protocol</li>
+<li>WebID for authentication</li>
+<li><a class="reference external" href="http://xmlns.com/foaf/spec/">FOAF</a> ontology for the user WebID profile</li>
+<li><a class="reference external" href="http://www.w3.org/ns/auth/cert">Certificate</a> and <a class="reference external" href="http://www.w3.org/ns/auth/rs">RSA</a> vocabularies to associate the user certificate public key to the WebID</li>
+<li><a class="reference external" href="http://www.itu.int/rec/T-REC-X.509/en">X509</a> certificates</li>
+<li>XMPP <a class="reference external" href="http://xmpp.org/extensions/xep-0077.html">In-Band-Registration</a> extension for account registration</li>
+<li><a class="reference external" href="http://tools.ietf.org/html/rfc5246">TLS</a> protocol for secure communications</li>
+<li>XMPP <a class="reference external" href="http://xmpp.org/extensions/xep-0178.html">SASL EXTERNAL</a> authentication mechanism</li>
+<li><a class="reference external" href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> to extract WebID URI, public keys and Jabber account</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="xmppwebid-certificate-generator">
+<h2>XMPPWebID certificate generator<a class="headerlink" href="#xmppwebid-certificate-generator" title="Permalink to this headline">¶</a></h2>
+<p>XMPPWebID certificate generator is an <a class="reference external" href="http://djangoproject.com/">Django</a> app intended to generate valid
+certificates for HTPP and XMPP.</p>
+<p>It creates XMPP account and generates the certificate that is installed in your
+browser and can also be installed in a XMPP client.</p>
+<p>To use your certificate in XMPP (Jabber) you would need a client that supports
+user certificates (currently <a class="reference external" href="http://gajim.org/">Gajim</a> v0.14) and a Jabber server software that
+supports SASL EXTERNAL authentication (<a class="reference external" href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>).</p>
+<div class="section" id="install">
+<h3>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<p>To install XMPPWebID  certificate generator see <a class="reference internal" href="install.html#ref-install"><em>Installing XMPPWebID certificate generator in Debian/Ubuntu</em></a></p>
+</div>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>You can download this project in either</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://github.com/xmppwebid/xmppwebid/zipball/master">zip</a> or</li>
+<li><a class="reference external" href="http://github.com/xmppwebid/xmppwebid/tarball/master">tar</a> formats.</li>
+</ul>
+</dd>
+<dt>You can also clone the project with <a class="reference external" href="http://git-scm.com">Git</a> by running::</dt>
+<dd>$ git clone git://github.com/xmppwebid/xmppwebid</dd>
+</dl>
+</div>
+<div class="section" id="bugs-and-features">
+<h2>Bugs and features<a class="headerlink" href="#bugs-and-features" title="Permalink to this headline">¶</a></h2>
+<p>If you wish to signal a bug or report a feature request, please fill-in an issue on the <a class="reference external" href="https://github.com/xmppwebid/xmppwebid/issues">XMPPWebID issue tracker</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>XMPPWebID is copyright 2010 by xmppwebid
+and is covered by the <a class="reference external" href="http://git-scm.com">GPLv3</a></p>
+</div>
+<div class="section" id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>(xmppwebid at gmail dot com)</p>
+</div>
+<div class="section" id="acknowledgments">
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://lists.foaf-project.org/mailman/listinfo/foaf-protocols">foaf-protocols</a> community</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">About XMPPWebID</a><ul>
+<li><a class="reference internal" href="#technologies">Technologies</a></li>
+<li><a class="reference internal" href="#xmppwebid-certificate-generator">XMPPWebID certificate generator</a><ul>
+<li><a class="reference internal" href="#install">Install</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#bugs-and-features">Bugs and features</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#contact">Contact</a></li>
+<li><a class="reference internal" href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to XMPPWebID Certificate Generator&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to XMPPWebID Certificate Generator’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, janaya, benx.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

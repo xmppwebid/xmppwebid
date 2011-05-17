@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing Jabberd2 in Debian/Ubuntu &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
+    <link rel="next" title="Install Gajim and the user certificate" href="installgajim.html" />
+    <link rel="prev" title="Installing XMPPWebID certificate generator in Debian/Ubuntu" href="installxmppwebidcg.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installgajim.html" title="Install Gajim and the user certificate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installxmppwebidcg.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installing-jabberd2-in-debian-ubuntu">
+<span id="ref-installjabberd"></span><h1>Installing Jabberd2 in Debian/Ubuntu<a class="headerlink" href="#installing-jabberd2-in-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-jabberd2-from-the-source-code">
+<h2>Install Jabberd2 from the source code<a class="headerlink" href="#install-jabberd2-from-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="https://bugs.launchpad.net/jabberd2/+bug/405233">patch</a>
+by Michal Witkowski (on 2009-07-27) adds support for C2S SASL External
+Authentication to jabberd2  has been merged in the 2.2.12 release.</p>
+<p>Get the latest release:</p>
+<div class="highlight-python"><pre>$ wget http://codex.xiaoka.com/pub/jabberd2/releases/jabberd-2.2.13.tar.bz2</pre>
+</div>
+<p>Install the required libraries:</p>
+<div class="highlight-python"><pre>$ sudo aptitude install build-essential mysql-server libmysqlclient-dev libexpat1-dev libidn11-dev libudns-dev libgsasl7-dev</pre>
+</div>
+<p>Uncompress Jabberd2:</p>
+<div class="highlight-python"><pre>$ tar -xvjf jabberd-2.2.13.tar.bz2</pre>
+</div>
+<p>Compile it:</p>
+<div class="highlight-python"><pre>$ cd jabberd-2.2.13
+$ ./configure --enable-mysql --enable-ssl
+$ make
+$ sudo make install</pre>
+</div>
+</div>
+<div class="section" id="configure-jabberd2">
+<h2>Configure Jabberd2<a class="headerlink" href="#configure-jabberd2" title="Permalink to this headline">¶</a></h2>
+<p>Copy the certificates generated in <a class="reference internal" href="certificates.html#ref-certificates"><em>Creating the certificates</em></a> to the Jabberd2 configuration directory:</p>
+<div class="highlight-python"><pre>$ cp /path/to/my/ca/xmpp_ca_cert.pem /etc/jabberd2</pre>
+</div>
+<p>Edit the file in /etc/jabberd2/c2s.xml.</p>
+<p>On &lt;local&gt; section comment the following line:</p>
+<div class="highlight-python"><pre>&lt;!--&lt;id register-enable='true'&gt;localhost.localdomain&lt;/id&gt;--&gt;
+And add these others:
+
+    &lt;id realm='yourxmppdomain.com'
+        pemfile='/etc/jabberd2/myjabberdcert.pem'
+        verify-mode='7'
+        cachain='/etc/jabberd2/xmpp_ca_cert.pem'
+        register-enable='true'
+    &gt;yourxmppdomain.com&lt;/id&gt;</pre>
+</div>
+<p>Where cachain is the CA cert you just generated, pemfile is the server certificate that will be used for client connections.
+From the documentation in c2s.xml:</p>
+<p>&#8220;The certificates must be in PEM format and must be sorted starting with the subject&#8217;s certificate (actual client or server certificate), followed by intermediate CA certificates if applicable, and ending at the highest level (root) CA&#8221; (the latter one being optional).</p>
+<p>You could also use the following directives to give human-readable information and point to the webapp that will handle the cert creation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">instructions</span><span class="o">=</span><span class="s">&#39;Go to http://example.org/register to get your account.&#39;</span>
+<span class="n">register</span><span class="o">-</span><span class="n">oob</span><span class="o">=</span><span class="s">&#39;http://example.org/register&#39;</span>
+</pre></div>
+</div>
+<p>Some lines below, specify again your certificate and ca-chain, and set verify mode to 7:</p>
+<div class="highlight-python"><pre>&lt;pemfile&gt;/etc/jabberd2/myjabberdcert.pem&lt;/pemfile&gt;
+&lt;verify-mode&gt;7&lt;/verify-mode&gt;
+&lt;cachain&gt;/etc/jabberd2/xmpp_ca_cert.pem&lt;/cachain&gt;</pre>
+</div>
+<p>Modify &lt;authreg&gt; section according to what database you want to use. We are going to use sqlite instead of mysql, for simplicity&#8217;s sake:</p>
+<div class="highlight-python"><pre>&lt;!--&lt;module&gt;mysql&lt;/module&gt;--&gt;
+&lt;module&gt;sqlite&lt;/module&gt;</pre>
+</div>
+<p>Create the database tables:</p>
+<div class="highlight-python"><pre>gunzip -c /usr/share/doc/jabberd2/db-setup.sqlite.gz  &gt; /tmp/db-setup.sqlite
+sudo sqlite3 /var/lib/jabberd2/sqlite.db &lt;  /tmp/db-setup.sqlite
+chown jabber:jabber /var/lib/jabberd2/sqlite.db</pre>
+</div>
+<p>Finally, check that sasl-external is being offered in the ssl-mechanism section (and maybe you want to disable &#8220;plain&#8221;).</p>
+<p>Now we change a couple of things in the session manager config /etc/jabberd2/sm.xml:</p>
+<div class="highlight-python"><pre>&lt;id&gt;yourxmppdomain.com&lt;/id&gt;</pre>
+</div>
+<p>And modify also the storage backend:</p>
+<div class="highlight-python"><pre>&lt;!-- Storage database configuration --&gt;
+&lt;storage&gt;
+  (...)
+  &lt;!-- By default, we use the MySQL driver for all storage --&gt;
+  &lt;driver&gt;sqlite&lt;/driver&gt;</pre>
+</div>
+<p>... and restart your server:</p>
+<div class="highlight-python"><pre>/etc/init.d/jabberd2 restart</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing Jabberd2 in Debian/Ubuntu</a><ul>
+<li><a class="reference internal" href="#install-jabberd2-from-the-source-code">Install Jabberd2 from the source code</a></li>
+<li><a class="reference internal" href="#configure-jabberd2">Configure Jabberd2</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installxmppwebidcg.html"
+                        title="previous chapter">Installing XMPPWebID certificate generator in Debian/Ubuntu</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installgajim.html"
+                        title="next chapter">Install Gajim and the user certificate</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installjabberd.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installgajim.html" title="Install Gajim and the user certificate"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installxmppwebidcg.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
+             >previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, janaya, benx.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

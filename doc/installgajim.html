@@ -1,0 +1,127 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install Gajim and the user certificate &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
+    <link rel="prev" title="Installing Jabberd2 in Debian/Ubuntu" href="installjabberd.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="install-gajim-and-the-user-certificate">
+<span id="ref-installgajim"></span><h1>Install Gajim and the user certificate<a class="headerlink" href="#install-gajim-and-the-user-certificate" title="Permalink to this headline">¶</a></h1>
+<p>Thanks to a <a href="#id1"><span class="problematic" id="id2">`patch`_</span></a> that has been integrated in the trunk, Gajim v0.14 supports
+the C2S SASL External authentication.</p>
+<div class="section" id="install-gajim-from-the-source-code">
+<h2>Install Gajim from the source code<a class="headerlink" href="#install-gajim-from-the-source-code" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="install-the-user-certificate-into-the-client">
+<h2>Install the user certificate into the client<a class="headerlink" href="#install-the-user-certificate-into-the-client" title="Permalink to this headline">¶</a></h2>
+<p>First, we should add our new account:</p>
+<p>&#8220;Edit&#8221; -&gt; &#8220;Accounts&#8221; -&gt; &#8220;Add -&gt; &#8220;I already have an account I want to use.&#8221;</p>
+<p>Fill with the data of the account we just registered in the web app. We can leave the password field empty, since it is not going to be used.</p>
+<p>Uncheck &#8220;connect when I press Finish&#8221;</p>
+<p>Click on &#8220;Advanced&#8221; button.</p>
+<p>Next, let&#8217;s set the certificate for this account:</p>
+<p>In the &#8220;Account&#8221; tab, expand the &#8220;Client Certificate&#8221; item at the bottom.</p>
+<p>Choose your Client Cert from the path where you saved it (watch out for permissions, since it does not have the private key encrypted! ).</p>
+<p>Unmark the &#8220;Enable&#8221; tickbox at the top, and mark it again. Close the window, and set your status to Available to connect.</p>
+<p>Et voila! You should be connecting to your jabber server passwordless :)</p>
+<p>In case of trouble, open a ticket or contact at info at rhizomatik.net.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Install Gajim and the user certificate</a><ul>
+<li><a class="reference internal" href="#install-gajim-from-the-source-code">Install Gajim from the source code</a></li>
+<li><a class="reference internal" href="#install-the-user-certificate-into-the-client">Install the user certificate into the client</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installjabberd.html"
+                        title="previous chapter">Installing Jabberd2 in Debian/Ubuntu</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installgajim.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
+             >previous</a> |</li>
+        <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, janaya, benx.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
