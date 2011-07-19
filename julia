@@ -1,0 +1,26 @@
+<rdf:RDF xmlns="http://xmlns.com/foaf/0.1/"
+    xmlns:cert="http://www.w3.org/ns/auth/cert#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rsa="http://www.w3.org/ns/auth/rsa#">
+    
+    <PersonalProfileDocument rdf:about="http://xmppwebid.github.com/xmppwebid/julia">
+        <maker rdf:resource="http://xmppwebid.github.com/xmppwebid/julia#me"/>
+        <primaryTopic rdf:resource="http://xmppwebid.github.com/xmppwebid/julia#me"/>
+        <title>xmppwebid julia's FOAF</title>
+    </PersonalProfileDocument>
+
+    <Person rdf:about="http://xmppwebid.github.com/xmppwebid/julia#me">
+        <nick>julia</nick>
+    </Person>
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/ns/auth/rsa#RSAPublicKey"/>
+        <cert:identity rdf:resource="http://xmppwebid.github.com/xmppwebid/julia#me"/>
+        <rsa:modulus rdf:datatype="http://www.w3.org/ns/auth/cert#hex">
+A0A834621D6E6E17D37952587739F17761F851D776B8B419F6CCE63E8B4AC59533737D31F9A368CF3FA77FCD797A49E18ADE96F0E36A1E7617A361F26BA2348EE77124311806D9F1101BD36E2A98D00FA471B57F75C169C6F06A9E9C20535917D6B1C65A71DEA02DA1A850EBF8A0410D3F9567D280689D4331981240FD312CB820A29DF77FB05477BBE45C46C70725F8E9FE78D02C8FFC30EE7BBBED8AE1254547E1D0B2C6FD4B578DFB83619A6A426CE982018E6F00F45459FB11C1CDA45C0EE42F4722BA11315E49B30D0937CBA2D4CE553642839889FC978FB43992D5272074B13FBBEDF1AB18AF54D29A1965EF5D45D580A2BD198AAD81BE2F5DCDEE51B9</rsa:modulus>
+        <rsa:public_exponent rdf:datatype="http://www.w3.org/ns/auth/cert#decimal">65537</rsa:public_exponent>
+    </rdf:Description>
+</rdf:RDF>
