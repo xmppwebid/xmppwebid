@@ -8,6 +8,6 @@ pyxmpp==1.0.1
 libxml2-python==2.6.11
 dnspython==1.8.0
 #xmppwebid_provider==0.1
-#xmppwebid_certs==0.1
+#xmppwebid==0.2
 django-uni-form==0.6.0
 django-staticfiles==0.1.2

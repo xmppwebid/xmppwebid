@@ -1,26 +1,62 @@
+#!/usr/bin/python
+# vim: set expandtab tabstop=4 shiftwidth=4:
+# -*- coding: utf-8 -*-
+
+#
+# Copyright (C) 2011 julia dot anaya at gmail dot com
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by the
+# Free Software Foundation; either version 2, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY
+# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# for more details.
+"""
+    views
+    ~~~~~~~~
+
+    :author:       Julia Anaya
+    :organization: xmppwebid community
+    :copyright:    author 
+    :license:      GNU GPL version 3 or any later version 
+                    (details at http://www.gnu.org)
+    :contact:      julia dot anaya at gmail dot com
+    :dependencies: python (>= version 2.6)
+    :change log:
+    :TODO: 
+"""
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django import template
-from  xmppwebid_certs.xmpp_foaf_cert import *
-from datetime import datetime
-from forms import *
-from settings import JABBER_CACERT_PATH, JABBER_CAKEY_PATH, JABBER_DOMAIN, CERT_SERIAL_PATH, STATIC_URL, MEDIA_URL
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_protect
+from datetime import datetime
+from settings import JABBER_CACERT_PATH, JABBER_CAKEY_PATH, JABBER_DOMAIN, CERT_SERIAL_PATH, STATIC_URL, MEDIA_URL
 
 from jabber_registration import JabberUtil
 from socket import error as SocketError
 from pyxmpp.jabber.clientstream import RegistrationError
 
+from xmppwebid.xmppwebid import gen_xmppwebid_casigned_cert_pemfile, \
+     pemfile_2_pkcs12file
+
+from forms import XmppIdentityForm
+
+#@csrf_protect
 def xmpp_identity(request):
-    """
-    create jabber account if it does not exits..
-    @TODO:
+    """Create jabber account if it does not exist and a XMPPWebID certificate
+    
+    :TODO:
      * Create form for custom name and webid
      * Include in the form  the password and change xmppwebid_certs to get it from variable/file
      * Firefox should ask to import the cert instead of downloading
      * include FOAF URI in jabber vCard
      * is the password file needed or can be substitude by a dummy password to register jabber account?
+    
     """
     errors = False
     messages = []
@@ -28,8 +64,6 @@ def xmpp_identity(request):
     if request.method == 'POST': 
         form = XmppIdentityForm(request.POST) 
         if form.is_valid(): 
-            # Process the data in form.cleaned_data
-#            id_xmpp = form.cleaned_data['id_xmpp']
             xmpp_password = form.cleaned_data['xmpp_password']
 #            username, domain = id_xmpp.split('@')
             username = xmpp_user = form.cleaned_data['xmpp_user']
@@ -67,14 +101,13 @@ def xmpp_identity(request):
             else:
                 print "Jabber account %s@%s created" % (username, domain)
                 webid = str(form.cleaned_data['webid'])
-    #            mkcert_casigned_from_file_save(str(id_xmpp), str(webid), JABBER_CACERT_PATH, JABBER_CAKEY_PATH)
                 id_xmpp = str(username)+'@'+domain
-                mkcert_casigned_from_file_save(id_xmpp, webid, JABBER_CACERT_PATH, JABBER_CAKEY_PATH, serial_path=CERT_SERIAL_PATH)
-    #            if 'PEM' in request.POST:
-    #                path = pemcert()
-    #            elif 'PKCS12' in request.POST:
                 try: 
-                    path = pkcs12cert()
+                    #ideally would be
+    #                gen_xmppwebid_selfsigned_cert_pemfile(id_xmpp, webid, serial_path=CERT_SERIAL_PATH)
+                    # but jabber server still needs a CA signed certificate
+                    gen_xmppwebid_casigned_cert_pemfile(id_xmpp, webid, JABBER_CACERT_PATH, JABBER_CAKEY_PATH, serial_path=CERT_SERIAL_PATH)
+                    path = pemfile_2_pkcs12file()
                     print "PKC12 path: " + path
                 except Exception, e:
                     message = "Error trying to generate client certificate: " + str(e)

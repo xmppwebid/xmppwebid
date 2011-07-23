@@ -2,8 +2,8 @@
 # vim: set expandtab tabstop=4 shiftwidth=4:
 # -*- coding: utf-8 -*-
 
-# gen_cacert <http://xmppwebid.github.com/>
-# Python functions for generate a X509 CA certificate 
+# create_ca <http://xmppwebid.github.com/>
+# Create a X509 CA certificate
 #
 # Copyright (C) 2011 julia dot anaya at gmail dot com
 #
@@ -17,35 +17,33 @@
 # or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
 # for more details.
 """
-gen_cacert
+    create_ca
+    ~~~~~~~~~~~~~~~
 
-Python functions for generate a X509 CA certificate.
+    Create a X509 CA certificate.
 
-Usage: execute ./gen_cacert -h
+    Usage: execute ./create_ca -h
 
-@author:       julia
-@organization: xmppwebid community
-@copyright:    author 
-@license:      GNU GPL version 3 or any later version 
-                (details at http://www.gnu.org)
-@contact:      julia dot anaya at gmail dot com
-@dependencies: python (>= version 2.5)
-@change log:
-@TODO: 
- * Get error/warning when some of the main parameters have space and th
-at and the nexts get ignored
- * Add paramter for certificate serial path
+    :author:       Julia Anaya
+    :organization: xmppwebid community
+    :copyright:    author 
+    :license:      GNU GPL version 3 or any later version 
+                    (details at http://www.gnu.org)
+    :contact:      julia dot anaya at gmail dot com
+    :dependencies: python (>= version 2.6)
+    :change log:
+    :TODO: 
 """
 
-__app__ = "gen_cacert"
-__author__ = "julia"
+__app__ = "create_ca"
+__author__ = "Julia Anaya"
 __version__ = "0.1"
-__copyright__ = "Copyright (c) 2011 julia"
+__copyright__ = "Copyright (c) 2011 Julia Anaya"
 __date__ = "2011/03/01"
 __license__ = " GNU GPL version 3 or any later version (details at http://www.gnu.org)"
 __credits__ = ""
 
-from xmpp_foaf_cert import *
+from xmppwebid import gen_cacert_pemfile
 import sys
 import getopt
 
@@ -62,7 +60,9 @@ Options:
   -h, --help                    Print this usage message.
   -d, --debug
   -p, --certificate-path        CA certificate path
-  -k, --certificate-key-path    CA private key path
+  -k, --key-path    CA private key path
+  -s, --certificate-serial-path certificate serial number path
+  -y  --years                   certificate years
   -n, --commmonname             certificate commonName
   -c, --country                 certificate countryName
   -o, --organization            certificate organizationName
@@ -85,24 +85,37 @@ Thanks to:
 def main(argv):
     """
     Create an x509 CA certificate and save it as PEM file
-    
-    @param CN: certificate commonName
-    @param C: certificate countryName
-    @param O: certificate organizationName
-    @param OU: certificate organizationalUnitName
-    @param Email: certificate emailAddress
-    @type CN: string
-    @type C: string
-    @type O: string
-    @type OU: string
-    @type Email: string
-    @param cacert_path: CA certificate path
-    @param cakey_path: CA private key path
-    @type cacert_path: string
-    @type cakey_path: string
+
+    Options:
+      -h, --help                    Print this usage message.
+      -d, --debug
+      -p, --certificate-path        CA certificate path
+      -k, --key-path    CA private key path
+      -y  --years                   certificate years
+      -s, --certificate-serial-path certificate serial number path
+      -n, --commmonname             certificate commonName
+      -c, --country                 certificate countryName
+      -o, --organization            certificate organizationName
+      -u, --organizationalunit      certificate organizationalUnitNam
+      -e, --email                   certificate emailAddress
     """
-    short_opts = "hdp:k:n:c:o:u:e:"
-    long_opts = ["help","debug", "certificate-path=","certificate-key-path=","commonname=","country=","organization=","organizationalunit=","email="]
+    
+    serial_path='/tmp/xmppwebid_cert_serial.txt'
+    years = 1
+    CN = "CA Certificate"
+    C = "CR"
+    O="xmppwebid community"
+    OU="xmppwebid CA cert"
+    Email="ca:xmppwebid.github.com"
+    cacert_path='/tmp/xmppwebid_cacert.pem'
+    cakey_path='/tmp/xmppwebid_cakey.key'
+    
+    short_opts = "hdp:k:s:y:n:c:o:u:e:"
+    long_opts = ["help","debug", "certificate-path=","key-path=", 
+      "certificate-serial-path=", "years=", 
+      "commonname=", "country=", "organization=",
+      "organizationalunit=", "email="]
+      
     try:                                
         opts, args = getopt.getopt(argv, short_opts, long_opts)
     except getopt.GetoptError:
@@ -110,14 +123,6 @@ def main(argv):
 #        _usage()
 #        sys.exit(0)
 
-    # Example default values
-    CN = "CA Certificate"
-    C = "CR"
-    O="Rhizomatik Labs"
-    OU="Mycelia project"
-    Email="ca@xmppwebid.github.com"
-    cacert_path='/tmp/xmpp_foaf_cacert.pem'
-    cakey_path='/tmp/xmpp_foaf_cakey.key'
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):     
@@ -125,7 +130,7 @@ def main(argv):
             sys.exit(0)
         elif opt in ("-p","--certificate-path"):
             cacert_path = arg
-        elif opt in ("-k","--certificate-key-path"):
+        elif opt in ("-k","--key-path"):
             cakey_path = arg
         elif opt in ("-n","--commmonname"):
             CN = arg
@@ -137,14 +142,13 @@ def main(argv):
             OU = arg
         elif opt in ("-e","--email"):
             Email = arg
-    if DEBUG:
-        print "CN: "+CN
-        print "C: "+C
-        print "O: "+O
-        print "OU: "+OU
-        print "Email: "+Email
+        elif opt in ("-s","--certificate-serial-path"):
+            serial_path = arg
+        elif opt in ("-y","--years"):
+            years = arg
 
-    mkcacert_save(cacert_path, cakey_path, CN, C, O, OU, Email)
+    gen_cacert_pemfile(CN, C, O, OU, Email, cacert_path, cakey_path,
+                       serial_path, years)
     
 if __name__ == "__main__":
     main(sys.argv[1:])

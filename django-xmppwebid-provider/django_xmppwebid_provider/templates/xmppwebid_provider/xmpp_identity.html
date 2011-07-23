@@ -4,6 +4,8 @@
 
 {% load uni_form_tags %}
 
+{% csrf_token %}
+
 {% block head_title %}{% blocktrans %}XMPP and HTTP WebID Client Certificate{% endblocktrans %}{% endblock %}
 
 {% block extra_head %}
@@ -25,7 +27,7 @@
 
     {% include "xmppwebid_provider/intro.html" %}
     
-    <div class="form-toggle">
+    <div class="form-toggle">{% csrf_token %}
         <form class="uniForm" method="POST" action="">
             <fieldset class="inlineLabels">
                 {{ form|as_uni_form }}
