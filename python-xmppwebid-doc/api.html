@@ -1,0 +1,884 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; xmppwebid_certs v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="xmppwebid_certs v0.2 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to xmppwebid_certs’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to xmppwebid_certs’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">xmppwebid_certs v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-xmppwebid">
+<span id="api"></span><span id="ref-api"></span><h1>API<a class="headerlink" href="#module-xmppwebid" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-xmppwebid.xmppwebid"></span><div class="section" id="xmppwebid-utils">
+<h2>xmppwebid_utils<a class="headerlink" href="#xmppwebid-utils" title="Permalink to this headline">¶</a></h2>
+<p>Python functions for generate a X509 client certificate for XMPP or HTTP
+WebID authentication (including WebId and XMPP id at SubjectAltName).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">author:</th><td class="field-body">Julia Anaya</td>
+</tr>
+<tr class="field"><th class="field-name">organization:</th><td class="field-body">xmppwebid community</td>
+</tr>
+<tr class="field"><th class="field-name">copyright:</th><td class="field-body">author</td>
+</tr>
+<tr class="field"><th class="field-name">license:</th><td class="field-body">GNU GPL version 3 or any later version 
+(details at <a class="reference external" href="http://www.gnu.org">http://www.gnu.org</a>)</td>
+</tr>
+<tr class="field"><th class="field-name">contact:</th><td class="field-body">julia dot anaya at gmail dot com</td>
+</tr>
+<tr class="field"><th class="field-name">dependencies:</th><td class="field-body">python (&gt;= version 2.6), m2crypto (&gt;= version 0.20),
+pyopenssl (&gt;= version 0.12)</td>
+</tr>
+<tr class="field"><th class="field-name">change log:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition " id="index-0">
+<p class="first last admonition-title">Todo</p>
+</div>
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_serial_from_file">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_serial_from_file</tt><big>(</big><em>serial_path='/tmp/xmppwebid_cert_serial.txt'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_serial_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_serial_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get serial number from file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>serial_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; serial file path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">serial number</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_serial">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_serial</tt><big>(</big><em>cert</em>, <em>serial_number=0</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_serial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_serial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set certificate serial number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; certificate</li>
+<li><strong>serial_number</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate serial number</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_valtime">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_valtime</tt><big>(</big><em>cert</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_valtime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_valtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set certificate valid time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; certificate</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_keypair">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_keypair</tt><big>(</big><em>bits=1024</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_keypair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create RSA key pair
+Equivalent to: openssl genrsa -des3 -out client.key 1024</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bits</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; key bits length</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">key</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">EVP.PKey</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_csr">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_csr</tt><big>(</big><em>pkey</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_csr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_csr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 CSR (Certificate Signing Request)
+Equivalent to: openssl req -new -key client.key -out client.csr</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pkey</strong> (<em>EVP.PKey</em>) &#8211; key</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">x509 request</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">X509.Request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_csr_subject">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_csr_subject</tt><big>(</big><em>csr</em>, <em>CN=None</em>, <em>C=None</em>, <em>O=None</em>, <em>OU=None</em>, <em>Email=None</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_csr_subject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_csr_subject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the CSR Subject data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>CN</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate commonName</li>
+<li><strong>C</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate countryName</li>
+<li><strong>O</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationName</li>
+<li><strong>OU</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationalUnitName</li>
+<li><strong>Email</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate emailAddress</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 request</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.Request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_csr_xmppwebid">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_csr_xmppwebid</tt><big>(</big><em>csr</em>, <em>id_xmpp</em>, <em>webid</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_csr_xmppwebid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_csr_xmppwebid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the CSR SubjectAltName and Subject</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>csr</strong> (<em>X509.Request</em>) &#8211; x509 request</li>
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 request</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.Request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.sign_csr">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">sign_csr</tt><big>(</big><em>pkey</em>, <em>csr</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#sign_csr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.sign_csr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign the CSR</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pkey</strong> (<em>EVP.PKey</em>) &#8211; key</li>
+<li><strong>csr</strong> (<em>X509.Request</em>) &#8211; x509 request</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 request, key</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.Request, EVP.PKey</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_cert_from_csr">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_cert_from_csr</tt><big>(</big><em>csr</em>, <em>serial_number=0</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_cert_from_csr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_cert_from_csr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 certificate from CSR with default values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>csr</strong> (<em>X509.Request</em>) &#8211; x509 certificate request</li>
+<li><strong>serial_number</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate serial number</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.X509</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_cert_xmppwebid">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_cert_xmppwebid</tt><big>(</big><em>cert</em>, <em>id_xmpp</em>, <em>webid</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_cert_xmppwebid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_cert_xmppwebid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the SubjectAltName, Issuer and Subject</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; x509 certificate</li>
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.X509</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.sign_cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">sign_cert</tt><big>(</big><em>pkey</em>, <em>cert</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#sign_cert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.sign_cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign the cert</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pkey</strong> (<em>EVP.PKey</em>) &#8211; key</li>
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; x509 certificate</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate, key</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.X509, EVP.PKey</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.save_pkey_cert_to_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">save_pkey_cert_to_pemfile</tt><big>(</big><em>cert</em>, <em>pkey</em>, <em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#save_pkey_cert_to_pemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.save_pkey_cert_to_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save cert and pkey to files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pkey</strong> (<em>EVP.PKey</em>) &#8211; key</li>
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; x509 certificate</li>
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate path, key path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (string, string)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_xmppwebid_selfsigned_cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_xmppwebid_selfsigned_cert</tt><big>(</big><em>id_xmpp</em>, <em>webid</em>, <em>serial_number=0</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_xmppwebid_selfsigned_cert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_xmppwebid_selfsigned_cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 self-signed certificate</p>
+<p>Equivalent to: openssl x509 -req -days 365 -in client.csr 
+-signkey client.key -out client.crt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+<li><strong>serial_number</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate serial number</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 self-signed certificate, key</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (X509.X509, EVP.PKey)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_xmppwebid_selfsigned_cert_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_xmppwebid_selfsigned_cert_pemfile</tt><big>(</big><em>id_xmpp</em>, <em>webid</em>, <em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em>, <em>serial_path='/tmp/xmppwebid_cert_serial.txt'</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_xmppwebid_selfsigned_cert_pemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_xmppwebid_selfsigned_cert_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 self-signed certificate and save it as PEM file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>serial_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; serial file path</li>
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate path, key path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (string, string)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_cacert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_cacert</tt><big>(</big><em>cert</em>, <em>CN=None</em>, <em>C=None</em>, <em>O=None</em>, <em>OU=None</em>, <em>Email=None</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_cacert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_cacert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the SubjectAltName, Issuer and Subject</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>CN</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate commonName</li>
+<li><strong>C</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate countryName</li>
+<li><strong>O</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationName</li>
+<li><strong>OU</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationalUnitName</li>
+<li><strong>Email</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate emailAddress</li>
+<li><strong>cert</strong> (<em>X509.X509</em>) &#8211; x509 certificate</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">X509.X509</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.set_casigned_cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">set_casigned_cert</tt><big>(</big><em>id_xmpp</em>, <em>webid</em>, <em>cacert</em>, <em>cert</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#set_casigned_cert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.set_casigned_cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the CA contraint to true</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cert</strong> (<em>X509.X509</em>) &#8211; x509 certificate</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">x509 certificate</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">X509.X509</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_cacert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_cacert</tt><big>(</big><em>CN=None</em>, <em>C=None</em>, <em>O=None</em>, <em>OU=None</em>, <em>Email=None</em>, <em>serial_number=0</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_cacert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_cacert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 CA certificate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>serial_number</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate serial number</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+<li><strong>CN</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate commonName</li>
+<li><strong>C</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate countryName</li>
+<li><strong>O</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationName</li>
+<li><strong>OU</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationalUnitName</li>
+<li><strong>Email</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate emailAddress</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 self-signed certificate, key</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (X509.X509, EVP.PKey)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_cacert_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_cacert_pemfile</tt><big>(</big><em>CN=None</em>, <em>C=None</em>, <em>O=None</em>, <em>OU=None</em>, <em>Email=None</em>, <em>cacert_path='/tmp/xmppwebid_cacert.pem'</em>, <em>cakey_path='/tmp/xmppwebid_cakey.key'</em>, <em>serial_path='/tmp/xmppwebid_cert_serial.txt'</em>, <em>years=1</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#gen_cacert_pemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.gen_cacert_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 CA certificate and save it as PEM file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>CN</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate commonName</li>
+<li><strong>C</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate countryName</li>
+<li><strong>O</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationName</li>
+<li><strong>OU</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate organizationalUnitName</li>
+<li><strong>Email</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate emailAddress</li>
+<li><strong>serial_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; serial file path</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+<li><strong>cacert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>cakey_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate path, key path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (string, string)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_xmppwebid_casigned_cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_xmppwebid_casigned_cert</tt><big>(</big><em>cacert</em>, <em>capkey</em>, <em>id_xmpp</em>, <em>webid</em>, <em>serial_number=0</em>, <em>years=1</em><big>)</big><a class="headerlink" href="#xmppwebid.xmppwebid.gen_xmppwebid_casigned_cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 CA-signed certificate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+<li><strong>serial_number</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate serial number</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 self-signed certificate, private key</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (X509.X509, EVP.PKey)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.gen_xmppwebid_casigned_cert_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">gen_xmppwebid_casigned_cert_pemfile</tt><big>(</big><em>id_xmpp</em>, <em>webid</em>, <em>cacert_path='/tmp/xmppwebid_cacert.pem'</em>, <em>cakey_path='/tmp/xmppwebid_cakey.key'</em>, <em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em>, <em>serial_path='/tmp/xmppwebid_cert_serial.txt'</em>, <em>years=1</em><big>)</big><a class="headerlink" href="#xmppwebid.xmppwebid.gen_xmppwebid_casigned_cert_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an x509 CA-signed certificate and save it as PEM file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id_xmpp</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; xmpp id</li>
+<li><strong>webid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; FOAF WebId</li>
+<li><strong>serial_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; serial file path</li>
+<li><strong>years</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of years the certificate is going to be valid</li>
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+<li><strong>cacert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>cakey_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">x509 certificate path, key path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (string, string)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.pkey_cert_2_pkcs12cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">pkey_cert_2_pkcs12cert</tt><big>(</big><em>cert</em>, <em>pkey</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#pkey_cert_2_pkcs12cert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.pkey_cert_2_pkcs12cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a PKCS12 certificate from x509 certificate and key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pkey</strong> (<em>OpenSSL.crypto.PKey</em>) &#8211; key</li>
+<li><strong>cert</strong> (<em>OpenSSL.crypto.X509</em>) &#8211; x509 certificate</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">PKCS12 certificate</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">OpenSSL.crypto.PKCS12</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition " id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">create pkcs12 m2crypto function 
+(<a class="reference external" href="http://osdir.com/ml/python.cryptography/2004-05/msg00001.html">http://osdir.com/ml/python.cryptography/2004-05/msg00001.html</a>)</p>
+</div>
+<div class="admonition-todo admonition " id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">create pkcs12 with password interactively</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.save_pkcs12cert_to_pkcs12file">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">save_pkcs12cert_to_pkcs12file</tt><big>(</big><em>p12</em>, <em>p12cert_path='/tmp/xmppwebid_cert.p12'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#save_pkcs12cert_to_pkcs12file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.save_pkcs12cert_to_pkcs12file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save PKCS12 certificate to file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>p12</strong> (<em>OpenSSL.crypto.PKCS12</em>) &#8211; PKCS12 certificate</li>
+<li><strong>p12cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; PKCS12 certificate path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">PKCS12 certificate path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.pemfile_2_pkcs12file">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">pemfile_2_pkcs12file</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em>, <em>p12cert_path='/tmp/xmppwebid_cert.p12'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#pemfile_2_pkcs12file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.pemfile_2_pkcs12file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a PKCS12 certificate and save it from x509 certificate and 
+key files as PEM</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+<li><strong>p12cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">PKCS12 certificate path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_pkcs12cert_from_pkcs12file">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_pkcs12cert_from_pkcs12file</tt><big>(</big><em>p12cert_path='/tmp/xmppwebid_cert.p12'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_pkcs12cert_from_pkcs12file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_pkcs12cert_from_pkcs12file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get PKCS12 from file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p12cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">PKCS12 certificate</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">OpenSSL.crypto.PKCS12</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_cert_pkey_from_pkcs12cert">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_cert_pkey_from_pkcs12cert</tt><big>(</big><em>p12</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_cert_pkey_from_pkcs12cert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_cert_pkey_from_pkcs12cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get X509 certificate and key from PKCS12</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p12</strong> (<em>OpenSSL.crypto.PKCS12</em>) &#8211; PKCS12 certificate</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">x509 self-signed certificate, key</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">tuple (OpenSSL.crypto.X509, OpenSSL.crypto.PKey)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.pkcs12file_2_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">pkcs12file_2_pemfile</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em>, <em>p12cert_path='/tmp/xmppwebid_cert.p12'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#pkcs12file_2_pemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.pkcs12file_2_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get X509 certificate and key from PKCS12 file and save them as PEM
+key files as PEM</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+<li><strong>p12cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_cert_from_certpemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_cert_from_certpemfile</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_cert_from_certpemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_cert_from_certpemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get certificate from file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">x509 certificate</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">X509.X509</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_pkey_from_pkeypemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_pkey_from_pkeypemfile</tt><big>(</big><em>key_path='/tmp/xmppwebid_key.key'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_pkey_from_pkeypemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_pkey_from_pkeypemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key from file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">key</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">EVP.PKey</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.certpemfile_pkeypemfile_2_certpemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">certpemfile_pkeypemfile_2_certpemfile</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em>, <em>certkey_path='/tmp/xmppwebid_cert_key.pem'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#certpemfile_pkeypemfile_2_certpemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.certpemfile_pkeypemfile_2_certpemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a PEM file with X509 certificate and key from PEM files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+<li><strong>certkey_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">PEM file with X509 certificate and key path</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_modulus_exponent_from_cert_and_pkey_pemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_modulus_exponent_from_cert_and_pkey_pemfile</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em>, <em>key_path='/tmp/xmppwebid_key.key'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_modulus_exponent_from_cert_and_pkey_pemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_modulus_exponent_from_cert_and_pkey_pemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the modulus and exponent of RSA key from a PEM Certificate and
+key files
+m2.rsa_get_e(rsa.rsa) return something like &#8216;&#8217;
+so to get the decimal value (65537), two crufty methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</li>
+<li><strong>key_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; key path</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">tuple(modulus, exponent)</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (hex, int)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition " id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">replace the exponent method with something cleaner</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xmppwebid.xmppwebid.get_modulus_exponent_from_certpemfile">
+<tt class="descclassname">xmppwebid.xmppwebid.</tt><tt class="descname">get_modulus_exponent_from_certpemfile</tt><big>(</big><em>cert_path='/tmp/xmppwebid_cert.pem'</em><big>)</big><a class="reference internal" href="_modules/xmppwebid/xmppwebid.html#get_modulus_exponent_from_certpemfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xmppwebid.xmppwebid.get_modulus_exponent_from_certpemfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the modulus and exponent of RSA key from a PEM Certificate file</p>
+<p>m2.rsa_get_e(rsa.rsa) return something like &#8216;&#8217;
+so to get the decimal value (65537), two crufty methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cert_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; certificate path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">tuple(modulus, exponent)</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">tuple (hex, int)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition " id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">replace the exponent method with something cleaner</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#xmppwebid-utils">xmppwebid_utils</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to xmppwebid_certs&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to xmppwebid_certs’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">xmppwebid_certs v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Julia Anaya.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

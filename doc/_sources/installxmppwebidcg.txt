@@ -1,7 +1,7 @@
 .. _ref-installxmppwebidcg:
 
 ================================================================
-Installing XMPPWebID certificate generator in Debian/Ubuntu
+Installing django-xmppwebid-provider in Debian/Ubuntu
 ================================================================
 
 Install requirements
@@ -16,6 +16,16 @@ If not already installed you should install other dependencies first::
 If you plan to deploy the application with Apache and wsgi, install too::
 
     $ sudo aptitude install apache2 libapache2-mod-wsgi
+
+Download django-xmppwebid-provider
+=======================================
+You can download this project in either
+* `zip`_ or
+* `tar`_ formats.
+ 
+You can also clone the project with `Git`_ by running::
+
+    $ git clone git://github.com/xmppwebid/xmppwebid
     
 Create a virtualenv
 ===================
@@ -27,12 +37,12 @@ Create a virtualenv (you can choose any path to install the virtualenv)::
 Activate the virtualenv and install dependencies::
 
     $ source /path/to/xmppwebidenv/bin/activate
-    (xmppwebidenv)$ pip install -E xmppwebidenv -r /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/requirements
+    (xmppwebidenv)$ pip install -E xmppwebidenv -r /path/to/xmppwebid/django-xmppwebid-provider/example_xmppwebid_provider/requirements
 
 Customize the settings
 =======================
 
-Modify the settings in /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/settings_local.py, according to your Jabberd server and location of your certfificates (generated in the way described in :ref:`ref-certificates`::
+Modify the settings in /path/to/xmppwebid/django-xmppwebid-provider/examples_xmppwebid_provider/settings_local.py, according to your Jabberd server and location of your certfificates (generated in the way described in :ref:`ref-certificates`::
 
     JABBER_DOMAIN = 'yourxmppdomain.com'
     JABBER_CACERT_PATH = os.path.join(PROJECT_ROOT, 'ca-cert.pem')
@@ -45,7 +55,7 @@ Run the web application
 
 In the django project directory run the development server::
 
-    (xmppwebidenv)$ cd /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/
+    (xmppwebidenv)$ cd /path/to/xmppwebid/django-xmppwebid-provider/example_xmppwebid_provider/
     (xmppwebidenv)$ python manage.py runserver
 
 Point your browser at http://localhost:8000/

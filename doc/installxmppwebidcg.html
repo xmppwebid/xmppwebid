@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installing XMPPWebID certificate generator in Debian/Ubuntu &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
+    <title>Installing django-xmppwebid-provider in Debian/Ubuntu &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
     <link rel="next" title="Installing Jabberd2 in Debian/Ubuntu" href="installjabberd.html" />
-    <link rel="prev" title="Creating the certificates" href="certificates.html" /> 
+    <link rel="prev" title="Creating certificates with python-xmppwebid" href="certificates.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="certificates.html" title="Creating the certificates"
+          <a href="certificates.html" title="Creating certificates with python-xmppwebid"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -48,8 +48,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="installing-xmppwebid-certificate-generator-in-debian-ubuntu">
-<span id="ref-installxmppwebidcg"></span><h1>Installing XMPPWebID certificate generator in Debian/Ubuntu<a class="headerlink" href="#installing-xmppwebid-certificate-generator-in-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="installing-django-xmppwebid-provider-in-debian-ubuntu">
+<span id="ref-installxmppwebidcg"></span><h1>Installing django-xmppwebid-provider in Debian/Ubuntu<a class="headerlink" href="#installing-django-xmppwebid-provider-in-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="install-requirements">
 <h2>Install requirements<a class="headerlink" href="#install-requirements" title="Permalink to this headline">¶</a></h2>
 <p>If not already installed you should install other dependencies first:</p>
@@ -61,6 +61,15 @@ $ sudo pip install virtualenv</pre>
 <div class="highlight-python"><pre>$ sudo aptitude install apache2 libapache2-mod-wsgi</pre>
 </div>
 </div>
+<div class="section" id="download-django-xmppwebid-provider">
+<h2>Download django-xmppwebid-provider<a class="headerlink" href="#download-django-xmppwebid-provider" title="Permalink to this headline">¶</a></h2>
+<p>You can download this project in either
+* <a href="#id1"><span class="problematic" id="id2">`zip`_</span></a> or
+* <a href="#id3"><span class="problematic" id="id4">`tar`_</span></a> formats.</p>
+<p>You can also clone the project with <a href="#id5"><span class="problematic" id="id6">`Git`_</span></a> by running:</p>
+<div class="highlight-python"><pre>$ git clone git://github.com/xmppwebid/xmppwebid</pre>
+</div>
+</div>
 <div class="section" id="create-a-virtualenv">
 <h2>Create a virtualenv<a class="headerlink" href="#create-a-virtualenv" title="Permalink to this headline">¶</a></h2>
 <p>Create a virtualenv (you can choose any path to install the virtualenv):</p>
@@ -68,12 +77,12 @@ $ sudo pip install virtualenv</pre>
 </div>
 <p>Activate the virtualenv and install dependencies:</p>
 <div class="highlight-python"><pre>$ source /path/to/xmppwebidenv/bin/activate
-(xmppwebidenv)$ pip install -E xmppwebidenv -r /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/requirements</pre>
+(xmppwebidenv)$ pip install -E xmppwebidenv -r /path/to/xmppwebid/django-xmppwebid-provider/example_xmppwebid_provider/requirements</pre>
 </div>
 </div>
 <div class="section" id="customize-the-settings">
 <h2>Customize the settings<a class="headerlink" href="#customize-the-settings" title="Permalink to this headline">¶</a></h2>
-<p>Modify the settings in /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/settings_local.py, according to your Jabberd server and location of your certfificates (generated in the way described in <a class="reference internal" href="certificates.html#ref-certificates"><em>Creating the certificates</em></a>:</p>
+<p>Modify the settings in /path/to/xmppwebid/django-xmppwebid-provider/examples_xmppwebid_provider/settings_local.py, according to your Jabberd server and location of your certfificates (generated in the way described in <a class="reference internal" href="certificates.html#ref-certificates"><em>Creating certificates with python-xmppwebid</em></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">JABBER_DOMAIN</span> <span class="o">=</span> <span class="s">&#39;yourxmppdomain.com&#39;</span>
 <span class="n">JABBER_CACERT_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PROJECT_ROOT</span><span class="p">,</span> <span class="s">&#39;ca-cert.pem&#39;</span><span class="p">)</span>
 <span class="n">JABBER_CAKEY_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PROJECT_ROOT</span><span class="p">,</span> <span class="s">&#39;ca-key.pem&#39;</span><span class="p">)</span>
@@ -84,7 +93,7 @@ $ sudo pip install virtualenv</pre>
 <div class="section" id="run-the-web-application">
 <h2>Run the web application<a class="headerlink" href="#run-the-web-application" title="Permalink to this headline">¶</a></h2>
 <p>In the django project directory run the development server:</p>
-<div class="highlight-python"><pre>(xmppwebidenv)$ cd /path/to/xmppwebid/django-xmppwebid-provider/examples/django_xmppwebid_provider/
+<div class="highlight-python"><pre>(xmppwebidenv)$ cd /path/to/xmppwebid/django-xmppwebid-provider/example_xmppwebid_provider/
 (xmppwebidenv)$ python manage.py runserver</pre>
 </div>
 <p>Point your browser at <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a></p>
@@ -124,8 +133,9 @@ Optionally, fill up to your WebID (foaf editor should be integrated into the app
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Installing XMPPWebID certificate generator in Debian/Ubuntu</a><ul>
+<li><a class="reference internal" href="#">Installing django-xmppwebid-provider in Debian/Ubuntu</a><ul>
 <li><a class="reference internal" href="#install-requirements">Install requirements</a></li>
+<li><a class="reference internal" href="#download-django-xmppwebid-provider">Download django-xmppwebid-provider</a></li>
 <li><a class="reference internal" href="#create-a-virtualenv">Create a virtualenv</a></li>
 <li><a class="reference internal" href="#customize-the-settings">Customize the settings</a></li>
 <li><a class="reference internal" href="#run-the-web-application">Run the web application</a></li>
@@ -137,7 +147,7 @@ Optionally, fill up to your WebID (foaf editor should be integrated into the app
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="certificates.html"
-                        title="previous chapter">Creating the certificates</a></p>
+                        title="previous chapter">Creating certificates with python-xmppwebid</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="installjabberd.html"
                         title="next chapter">Installing Jabberd2 in Debian/Ubuntu</a></p>
@@ -173,7 +183,7 @@ Optionally, fill up to your WebID (foaf editor should be integrated into the app
           <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
              >next</a> |</li>
         <li class="right" >
-          <a href="certificates.html" title="Creating the certificates"
+          <a href="certificates.html" title="Creating certificates with python-xmppwebid"
              >previous</a> |</li>
         <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
       </ul>

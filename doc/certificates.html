@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Creating the certificates &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
+    <title>Creating certificates with python-xmppwebid &mdash; XMPPWebID Certificate Generator v0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
-    <link rel="next" title="Installing Jabberd2 in Debian/Ubuntu" href="installjabberd.html" />
-    <link rel="prev" title="Installing XMPPWebID certificate generator in Debian/Ubuntu" href="install.html" /> 
+    <link rel="next" title="Installing XMPPWebID certificate generator in Debian/Ubuntu" href="installxmppwebidcg.html" />
+    <link rel="prev" title="Installing XMPPWebID" href="install.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,10 +34,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
+          <a href="installxmppwebidcg.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="install.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
+          <a href="install.html" title="Installing XMPPWebID"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -48,8 +48,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="creating-the-certificates">
-<span id="ref-certificates"></span><h1>Creating the certificates<a class="headerlink" href="#creating-the-certificates" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="creating-certificates-with-python-xmppwebid">
+<span id="ref-certificates"></span><h1>Creating certificates with python-xmppwebid<a class="headerlink" href="#creating-certificates-with-python-xmppwebid" title="Permalink to this headline">¶</a></h1>
 <p>The server certificate that Jabberd will present to the client, does not need
 to be signed by a Certification Authority (CA), it can be a self-signed
 certificate.</p>
@@ -59,42 +59,37 @@ to be signed by a CA.</p>
 you will need to create a CA certificate that will be used to generate the user
 certificates by the xmppwebid certificate generator and by Jabberd2 itself to
 validate those user certificates.</p>
-<div class="section" id="download-the-application">
-<h2>Download the application<a class="headerlink" href="#download-the-application" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>You can download this project in either</dt>
-<dd><ul class="first last simple">
-<li><a class="reference external" href="http://github.com/xmppwebid/xmppwebid/zipball/master">zip</a> or</li>
-<li><a class="reference external" href="http://github.com/xmppwebid/xmppwebid/tarball/master">tar</a> formats.</li>
-</ul>
-</dd>
-</dl>
+<div class="section" id="download-python-xmppwebid">
+<h2>Download python-xmppwebid<a class="headerlink" href="#download-python-xmppwebid" title="Permalink to this headline">¶</a></h2>
+<p>You can download this project in either
+* <a class="reference external" href="http://github.com/xmppwebid/xmppwebid/zipball/master">zip</a> or
+* <a class="reference external" href="http://github.com/xmppwebid/xmppwebid/tarball/master">tar</a> formats.</p>
 <p>You can also clone the project with <a class="reference external" href="http://git-scm.com">Git</a> by running:</p>
 <div class="highlight-python"><pre>$ git clone git://github.com/xmppwebid/xmppwebid</pre>
 </div>
-<div class="section" id="create-a-ca-certificate">
-<h3>Create a CA certificate<a class="headerlink" href="#create-a-ca-certificate" title="Permalink to this headline">¶</a></h3>
-<p>Generate the CA certificate:</p>
-<div class="highlight-python"><pre>$ cd xmppwebid/python-xmppwebid-certs/xmppwebid_certs
-$ ./gen_cacert.py -h # to see the options
-$ ./gen_cacert.py #without arguments will put the CA certificate and private key in /tmp</pre>
 </div>
-<p>Note: if you enter arguments with spaces, remember to enclose them in &#8216; &#8221; &#8216;, or it will fail silently. Also, remember to chmod 400 your key and chown it to the jabberd user that will access to it.</p>
+<div class="section" id="create-a-ca-certificate">
+<h2>Create a CA certificate<a class="headerlink" href="#create-a-ca-certificate" title="Permalink to this headline">¶</a></h2>
+<p>Generate the CA certificate:</p>
+<div class="highlight-python"><pre>$ cd xmppwebid/python-xmppwebid/xmppwebid
+$ ./create_ca.py -h # to see the options
+$ ./create_ca.py #without arguments will put the CA certificate and private key in /tmp</pre>
+</div>
+<p>Note: if you enter arguments with spaces, remember to enclose them in &#8216; &#8221; &#8216;, or it will fail silently.</p>
 </div>
 <div class="section" id="create-the-jabberd2-certificate">
-<h3>Create the Jabberd2 certificate<a class="headerlink" href="#create-the-jabberd2-certificate" title="Permalink to this headline">¶</a></h3>
-<p>Self-signed:</p>
-<div class="highlight-python"><pre>openssl genrsa 2048 &gt; myjabberdcert.key
-openssl req -new -x509 -nodes -sha1 -days 365 -key myjabberdcert.key &gt; myjabberdcert.cert
-cat myjabberdcert.key myjabberdcert.cert &gt; myjabberdcert.pem &amp;&amp; rm myjabberdcert.key
-chown jabber: myjabberdcert.pem
-chmod 400 myjabberdcert.pem
-mv myjabberdcert.pem  /etc/jabberd2/</pre>
+<h2>Create the Jabberd2 certificate<a class="headerlink" href="#create-the-jabberd2-certificate" title="Permalink to this headline">¶</a></h2>
+<p>CA-signed:</p>
+<div class="highlight-python"><pre>$ cd xmppwebid/python-xmppwebid/xmppwebid
+$ ./create_xmppwebid_casigned_cert.py</pre>
 </div>
-<dl class="docutils">
-<dt>CA-signed::</dt>
-<dd>$</dd>
-</dl>
+<p>Self-signed:</p>
+<div class="highlight-python"><pre>$ cd xmppwebid/python-xmppwebid/xmppwebid
+$ ./create_xmppwebid_selfsigned_cert.py</pre>
+</div>
+<p>In any case, chown the certificates and key to the jabberd user that will access to it:</p>
+<div class="highlight-python"><pre>chown jabber: myjabberdcert.pem
+chmod 400 myjabberdcert.pem</pre>
 </div>
 </div>
 </div>
@@ -107,22 +102,20 @@ mv myjabberdcert.pem  /etc/jabberd2/</pre>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Creating the certificates</a><ul>
-<li><a class="reference internal" href="#download-the-application">Download the application</a><ul>
+<li><a class="reference internal" href="#">Creating certificates with python-xmppwebid</a><ul>
+<li><a class="reference internal" href="#download-python-xmppwebid">Download python-xmppwebid</a></li>
 <li><a class="reference internal" href="#create-a-ca-certificate">Create a CA certificate</a></li>
 <li><a class="reference internal" href="#create-the-jabberd2-certificate">Create the Jabberd2 certificate</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="install.html"
-                        title="previous chapter">Installing XMPPWebID certificate generator in Debian/Ubuntu</a></p>
+                        title="previous chapter">Installing XMPPWebID</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="installjabberd.html"
-                        title="next chapter">Installing Jabberd2 in Debian/Ubuntu</a></p>
+  <p class="topless"><a href="installxmppwebidcg.html"
+                        title="next chapter">Installing XMPPWebID certificate generator in Debian/Ubuntu</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/certificates.txt"
@@ -152,10 +145,10 @@ mv myjabberdcert.pem  /etc/jabberd2/</pre>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="installjabberd.html" title="Installing Jabberd2 in Debian/Ubuntu"
+          <a href="installxmppwebidcg.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
              >next</a> |</li>
         <li class="right" >
-          <a href="install.html" title="Installing XMPPWebID certificate generator in Debian/Ubuntu"
+          <a href="install.html" title="Installing XMPPWebID"
              >previous</a> |</li>
         <li><a href="index.html">XMPPWebID Certificate Generator v0.1 documentation</a> &raquo;</li> 
       </ul>

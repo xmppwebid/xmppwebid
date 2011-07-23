@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+    "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+  xmlns:geonames="http://www.geonames.org/ontology#" 
+  xmlns:swc="http://data.semanticweb.org/ns/swc/ontology#" 
+  xmlns:cert="http://www.w3.org/ns/auth/cert#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rsa="http://www.w3.org/ns/auth/rsa#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xml:lang="en">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab"> 
+  <meta property="dc:date dc:created" content="2011-05-07T13:00:00" />
+  <meta rel="dc:creator" href="" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Semantic_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RDFa" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/HTML5" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/SPARQL" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/XMPP" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RDF" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/WebID" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/TLS" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/SASL" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/X509" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RSA" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Semantic_Social_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Federated_Social_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Distributed_Social_Networks" />
+  <title property="dc:title">WebID-enabled XMPP: a bridge to the social web on your IM and beyond.</title>
+
+  <link href="http://www.w3.org/StyleSheets/TR/base.css" type="text/css" rel=
+  "stylesheet" />
+</head>
+
+<body typeof="foaf:Document">
+  <h1 property="dct:title">WebID-enabled XMPP: a bridge to the social web on your IM and beyond.</h1>
+
+  <p rel="swc:relatedToEvent">
+    <em typeof="swc:Conference">
+      <a rel="foaf:homepage" href="http://d-cent.org/fsw2011/" 
+        property="rdfs:label">
+        Federated Social Web Europe Conference</a>, June 3rd to 5th 2011, 
+      <a rel="geonames:locatedIn" href="http://dbpedia.org/resource/Berlin">
+       Berlin</a>
+    </em>
+  </p>
+
+  <p>
+    <span rel="foaf:maker">
+      <a about="http://xmppwebid.github.com/xmppwebid/benjamin" typeof="foaf:Person" rel="foaf:homepage" href="http://xmppwebid.github.com/xmppwebid/" 
+        property="foaf:name">Benjamin Carrillo</a>
+    </span> and 
+    <span rel="foaf:maker">
+      <a about="http://xmppwebid.github.com/xmppwebid/julia" typeof="foaf:Person" rel="foaf:homepage" href="http://xmppwebid.github.com/xmppwebid/" 
+        property="foaf:name">Julia Anaya</a>
+    </span>
+    <!-- Note: the authors could have WebID URI in their own servers and the content in it (and the whole domain) could be denied to everybody that does not authenticate by a WebID and does not satisfy some condition such as to be a friend. But the authors wish to go an step further in their privacy by having different identities (and URIs) for different projects, even if they are linked to their birth name, graph analysis could deanonimizy social networks and complete privacy is not possible... -->
+  </p>
+
+
+  <h2>Abstract</h2>
+  <p> <a href="http://xmpp.org/rfcs/rfc3920.html">Extensible Messaging and Presence Protocol</a> (XMPP) is a natural choice for implementing a federated infrastructure for social online activities, since it already embodies a social, federated paradigm right in its core.</p>
+  <p>In the social web stack, several HTTP-based protocols have flourished to address the same problems as their XMPP counterparts. Apart from the existence of gateways between services&#151;otherwise isomorphic on an abstract level&#151;social graphs remain isolated on disjoint networks.</p>
+  
+  <p>In this paper we discuss how the <a href="http://www.w3.org/2005/Incubator/webid/spec/">WebID</a> protocol can be used to bridge these two worlds: it can provide a means of secure authentication using client certificates, and by using special ontologies, it can be a base layer for powerful access control rules to resources. We suggest a possible extension to existing entity authentication mechanisms, and explore how XMPP server implementations can benefit from adding WebID capabilities, offering new and exciting features to their existing users base.</p>
+  
+  <h2>XMPP: just another protocol for the Federated Social Web</h2>
+
+  <p>XMPP is best known for its Instant Messaging (IM) capabilities, but it also has many other common social networking features: real-time communication, contacts and group managing, online presence, conference rooms, efficient publish-subscribe notifications and end-to-end connections for video and voice calls. Individuals can encrypt all their communications using common standards.</p>
+  <p>A variety of techniques have emerged to enable not only desktop clients, but also rich web applications, to benefit from XMPP's advantages as a backend. At the same time, a number of proposed extensions (<a href="http://xmpp.org/extensions/xep-0277.html">Microblogging over XMPP</a>, <a href="http://onesocialweb.org/spec/1.0/osw-activities.html">Activity Stream over XMPP</a>) allow common social web actions to be modeled using XMPP as a transport layer.</p>
+
+<h2>Distributed digital identity in the privacy-aware Web.</h2>
+
+  <p>
+  <img style="float:right" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/TheJabberwocky.jpg/250px-TheJabberwocky.jpg" alt="Alice depicted while trying to cut her ties with her former Identity Provider, the Jabberwocky" title="Alice depicted while trying to cut her ties with her former Identity Provider, the Jabberwocky"/>
+  </p>
+  
+  <p>One of the key freedoms that we envision for users of the social web is the ability to gain control over the management of their digital identities, moving away from systems that suffer from too centralized or hierarchical approaches. If Alice decides to change providers, her data (and metadata about access to her data) should be able to move seamlessly with her.</p>
+
+  <p>WebID is an authentication protocol that allows users to manage their own identities and data privacy. It uses <a href="http://tools.ietf.org/html/rfc3280">X.509</a> certificates and SSL certificate exchange mechanism, and is compatible with existing SSL/TLS implementations. However, it does not rely on Certificate Authority (CA) chains for building trustness.</p>
+    
+  <p>In WebID, the user profile is represented in a Semantic Web vocabulary, <a href="http://xmlns.com/foaf/spec/">Friend-of-a-Friend</a> (FOAF) that permits distributed hyperlinked social networks to exist.</p>
+  
+  <p>WebID also provides a few additional features such as trust management via digital signatures, and free-form extensibility via Resource Description Framework (RDF).</p>
+  
+  <p>It can also be used for authorization purposes in conjunction with other vocabularies and ontologies such as, Privacy Preference Ontology (PPO) [<a href="#ppo">1</a>] to provide a fine grained access control.</p>
+  
+  <p>In the XMPP world a user must always be known to a server by the Jabber User Identifier (JID), before establishing a session, and therefore a preexisting XMPP account on a given server cannot just be used to be authenticated in other social networks or services (and vice-versa). The XMPP user profile and roster are also specific to the server with which the user is registered, thus remaining isolated from other profiles that the user may maintain with other providers</p>
+  
+  <p>This isolation can change if we are able to use WebID for authentication. Statements contained in the WebID can draw a graph spreaded across the web without limits. We will see that we can either register an XMPP account to be associated with a WebID, or the XMPP server can provide a new WebID for the user, asking her if she wants to publish data from an existing WebID into the newly created one</p>
+
+  <p>We will also discuss the convenience of allowing a WebID-based single sign-on in some cases.</p>
+  
+  <h2>XMPP authentication using WebID.</h2>
+  
+  We identified several authentication mechanisms using certificates, WebID and/or JID by extending some of the existing XMPP extensions
+  
+  <h3 id="sec41">Using JID id-on-xmpp-addr</h3>
+
+  <p>XMPP client-to-server authentication supports TLS and SASL mechanisms with certificates, via the <a href="http://xmpp.org/extensions/xep-0178.html">SASL EXTERNAL</a> mechanism. This mechanism is compatible as-is with the certificates used in WebID, as long as the JID is known and registered, when the certificate is created. One possible way to ensure this is for the WebID provider to offer the user the possibility of registering a Jabber user (using <a href="http://xmpp.org/extensions/xep-0077.html">In-Band-Registration</a>) right before the WebID X509 certificate is created,  as discussed in step 11.1 of SASL EXTERNAL authentication. Note that the certificate also has the WebID URI in the subjectAltName object identifier, however, we are not using that in this case.</p>
+  
+  <p>To demonstrate the viability of this first mechanism we have implemented a sample web application (<a href="http://xmppwebid.github.com/xmppwebid/">XMPPWebID, certificate generation</a>) that, as part of the WebID certificate creation process, allows an user to register with a Jabber service. The key pairs are generated in the HTTP browser, but this could also be done by an XMPP client in a similar fashion. Once the JID has been registered by the XMPP server, the WebID provider encodes the JID and the WebID URI (to be also valid for the case described in the <a href="#sec42">SASL EXTERNAL WEBID</a> section) in the user certificate. Now the user can install the certificate in her/his XMPP client and include in his/her WebID  the RSA public key and the JID to authenticate against that XMPP server or other WebID-enabled HTTP services.</p>
+
+  <p>The X509 certificates in the XMPP SASL EXTERNAL are verified for a trusted Certification Authority (CA). This partial solution breaks the distributedness of the WebID trust building model, because it works only if the WebID certificate requests are signed by a CA in the trust chain of the certificates used by the XMPP server. In order to build a decentralized way to manage trust in the user authentication and authorization process, we propose a slight modification of the mechanism that does not rely on CA chain verification.
+  </p>
+  
+  <h3 id="sec42">No XMPP address on certificate and SASL EXTERNAL WEBID departures</h3>
+  
+  <p>
+  Step 11.3 of the cited XEP states:
+  </p>
+  <pre>
+If the certificate does not contain an XMPP address, then the server MAY attempt to determine 
+if there is a registered account associated with the user, for example by performing an LDAP lookup 
+based on the Common Name in the certificate; 
+if such a JID mapping is successful and the mapped JID matches the authorization identity provided, 
+then the server SHOULD allow authentication and authorization of that mapped JID.
+  </pre>
+  
+  <p>JID mapping can be obtained by means of dereferencing WebID URI provided in the certificate. A CA is not needed since the server can check user modulus and exponent against presented certificate. All that is needed is a way for the server to remember which signature has first claimed a given JID (we could consider that the first time that an unknown pub key is claiming a given JID would be equivalent to an In-Band-Registration event.)</p>
+ 
+  <p>In this way, the authentication and authorization process in a future SASL EXTERNAL WEBID extension could be as follows: <br /></p>
+   
+  <ol>
+    <li>Alice wants to login with a WebID-enabled XMPP server with a certificate previously installed in the client.</li>
+    <li>The client initiates an XML stream.</li>
+    <li>The XMPP server lists the communication mechanisms supported. STARTTLS is one of them.</li>
+    <li id="cert">The client sends to the server the X509 certificate, which includes the WebID URI.</li>
+        
+    <li>The server attempts to extract the the public key and the WebID URI entries contained in the Subject Alternative Name extension of the certificate. If it fails, it falls back to previous mechanism.</li>
+    <li>The server dereferences the WebID URI and extracts RDF data from the resulting document.</li>
+    <li>Then the server attempts to verify the public key information. If the public key in the certificate is found in the list of public keys associated with the claimed WebID URI, the server assumes that the client intends to use this public key to verify their ownership of the WebID URI.</li>
+    <li id="ServerCheckCert">The server verifies that the client owns the private key corresponding to the public key by performing TLS mutual-authentication.</li>
+    
+    <li>Once the TLS negotiation have been successful, the client initiates another XML stream</li>
+    <li>Now, the XMPP server lists the authentication options that it supports. SASL EXTERNAL WEBID is one of them.</li>
+    <li>The client selects the SASL EXTERNAL WEBID mechanism.</li>
+    <li>The server checks that the JID (if any) in the certificate id-on-xmpp-address entry is registered. If not, checks if a JID resource in the WebID profile (if any) is registered via an SPARQL query to check if the claimed identity is known to the server and it is associated with presented credentials. (If the JID is claimed but not registered, or if no identity is claimed, and the server has In-Band-Registration enabled, the registration process can be started at this step, interacting with user to find a non-colliding JID. The server SHOULD associate the public key with this JID for future lookups.)</li>
+    <li>On this step, further authorization rules can be applied (see the section <a href="#sec52">Joining rules for multi-user chats</a>).</li>
+    <li>The user has been authenticated and the client initiates a new XML stream.</li>
+    <li>The client informs Alice that she has been authenticated.</li>
+  </ol>
+  
+  <p>Sticking to SASL EXTERNAL, the server would validate the certificate following a CA trust after the step <a href="#cert">4</a>. But this is not needed if we follow SASL-external-WebID, as shown in step <a href="#ServerCheckCert">9</a>. </p>
+  
+  <p>The process is illustrated in Fig. <a href="#XMPPClientServerWebIDAuthentication">1</a>. For clarity's sake, the notes only show part of the certificate, FOAF or SPARQL queries.</p>
+  
+  <p>
+    <a id="XMPPClientServerWebIDAuthentication">
+      <img src="XMPPClientServerWebIDAuthentication.png" alt="WebId-enabled XMPP user authentication" />
+    </a><br />
+    Fig. 1: XMPP WebID user authentication. 
+  </p>
+    
+  <h3 id="sec43">The other way around: XMPP servers as WebID providers.</h3>
+
+  <p>A notable difference between HTTP and XMPP services is how a client interacts with other nodes: a given XMPP account interacts with its "mother" server, which is the entry point to the Jabber federation. As described by <a href="http://xmpp.org/extensions/xep-0175.html">SASL ANONYMOUS</a>, an anonymous user registering with Jabber servers is an exception rather than the norm, used mostly for ease of access to multi-user chats (MUCs). Certain features, such as presence notifications, can be resource intensive, and hence special care has to be taken on public servers where anonymous authorization is allowed.</p>
+  <p>In a similar way to how we have described a WebID variant for the SASL-EXTERNAL case, a SASL-ANONYMOUS-WEBID might be defined. It may sound paradoxical, but the main difference is that the server creates a transient account that is destroyed after the session is closed. 
+  Still, we could be interested in allowing limited access to these partially-anonymous users. They would be as anonymous as the public info in their WebID profiles, that could be used to grant them temporary access if their properties match some particular resource privacy requirements.
+  Aside from the MUCs case, users "roaming" between servers is not a scenario in XMPP, where server-to-server protocols render it useless. </p>
+  <p>From this angle, it makes no sense for the client to want to use a single certificate to authenticate against several servers (unless she specifically wants to keep accounts on different servers, of course). However, it is more natural to conceive it just the other way around: instead of considering accepting authentication from arbitrary WebIds, an XMPP server, by registering a component, can also act as a WebID provider. In the WebID diagram above, we just move WebID URIs to the realm of the XMPP server, which would expose it on an HTTP interface.</p>
+
+
+<h2 id="sec5">Example applications and scenarios.</h2>
+  <p>Let's examine three example applications built upon WebID authentication assumptions.</p>
+  <h3 id="sec51">Server-side WebID plugin.</h3>
+  <p>A plugin developed for widely deployed jabber servers is able to:</p>
+  <ul>
+	  <li>generate a client certificate to be used for passwordless authentication (using the SASL-EXTERNAL or SASL-WEBID extension). This same certificate can be installed in the browser and given access to any third-party WebID enabled web service.</li>
+	  <li>expose an HTTP-facing WebID URI for each XMPP user. Rosters naturally handle contacts and groups information, with most client implementations allowing for easy editing and profile info updates. This information can be dynamically mapped to FOAF (using a vCard mapping for instance), exposed to the "web world", including modulus and exponent of the user certificate, and links to other WebID the user could have. Access to this web interface can be done using WebID authentication over HTTP, so that the owner of the profile can also edit information using a browser instead of regular IM clients. Eventually this info can be stored by the server in a triple store to be SPARQL-queried later.
+  <p>Profile or roster information can be exposed depending on the level of access granted by the user (defaulting some information as public, for instance, and limiting other information to WebID-authenticated users who belong to particular groups defined in the roster, or those who meet any arbitrary, semantically-defined rule).</p>
+	  
+	  </li>
+  </ul>
+  <p>We're working on a plugin for ejabberd that implements this as a proof-of-concept.</p>
+
+  <h3 id="sec52">Joining rules for multi-user chats.</h3>
+  <p>Similar to the case of SASL anonymous registration described in SASL ANONYMOUS, it could be interesting to define a set of rules that permit access to certain services based on dereferencing the WebID URI obtained during SASL-WEBID authentication and evaluating the information returned. Rules do not have to be stored in the server, nor constrained to whatever modelling logic the server implements.</p> 
+  <p>Example rule 1: grant access to multi-user chat room to WebID users who belong to a certain mailing list / users of certain wiki (group defined in some predefined URI).</p>
+  <p>Example rule 2: grant access to WebID user if he's known by three or more users already in the room by using FOAF:knows predicate</p>
+
+  <h3 id="sec53">Personal triplestores and query forwarding.</h3>
+  <p>Given that identity is checked using the described WebID extension, arbitrary rules can be set against semantic pointers to impose a layer of privacy: access to publish-subscribe nodes can be restricted to certain sets of friends, or between-peer query-routing schemes can be defined on this basis.</p>
+  <p>There is an experimental <a href="http://www.w3.org/2005/09/xmpp-sparql-binding">SPARQL-XMPP binding</a>, that allows iq stanzas to carry SPARQL payloads. This opens a world of possibilites for personal RDF stores that use XMPP as a transport layer (<a href="http://svn.foaf-project.org/foaftown/jqbus/intro.html">jqbus</a>, <a href="http://rdfbus.rubyforge.org/">rdfbus</a>). Rules can even be applied not only on an all-or-nothing basis, but SPARQL queries can also be introspected and matched against personal policies. A case of this could be: "answer queries, using my semantic desktop endpoint, to friends of the W3C group that ask about my bookmarks on semweb topics. Queries about my phone number, instead, will only be answered if coming from agents in my family group in my roster".</p> 
+  <p>The properties of the presence items on XMPP make it very suitable to experiment with implementations of agents that act on behalf of the user while applying a predefined set of rules.</p>
+  
+  <h2><a id="conclusions">Conclusions</a></h2>
+  <p>With small modifications, SASL-EXTERNAL authentication can be used for WebID authentication without relying on hierarchycal certificate chains. Very flexible rules can be defined for accessing XMPP services or user data.</p>
+  <p>XMPP servers are very suitable to act as WebID providers. Hopefully we will also see them bloom in this flavor, hybridizing with the rest of the social web ecosystem.</p>
+
+  <h2>References</h2>
+  <p>
+  [1] Owen Sacco, Alexandre Passant. A Privacy Preference Ontology (PPO) for Linked Data. In Proceedings of the Linked Data on the Web Workshop (LDOW2011), CEUR-WS Workshop at 20th International World Wide Web Conference, Hyderabad, India, 2011. <a href="http://events.linkeddata.org/ldow2011/papers/ldow2011-paper01-sacco.pdf">http://events.linkeddata.org/ldow2011/papers/ldow2011-paper01-sacco.pdf</a><br />
+  
+  </p>
+
+
+  <p>
+    <a href="http://validator.w3.org/check?uri=referer">
+      <img src="http://www.w3.org/Icons/valid-xhtml-rdfa" 
+        alt="Valid XHTML + RDFa" />
+    </a>
+  </p>
+
+</body>
+</html>

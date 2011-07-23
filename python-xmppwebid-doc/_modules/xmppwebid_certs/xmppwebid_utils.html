@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>xmppwebid_certs.xmppwebid_utils &mdash; xmppwebid_certs v0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="xmppwebid_certs v0.2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">xmppwebid_certs v0.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for xmppwebid_certs.xmppwebid_utils</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># vim: set expandtab tabstop=4 shiftwidth=4:</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># xmppwebid_utils &lt;http://xmppwebid.github.com/&gt;</span>
+<span class="c"># Python functions for generate a X509 client certificate for XMPP or HTTP</span>
+<span class="c"># WebID authentication (including WebId and XMPP id at SubjectAltName).</span>
+<span class="c">#</span>
+<span class="c"># Copyright (C) 2011 julia dot anaya at gmail dot com</span>
+<span class="c">#</span>
+<span class="c"># This program is free software; you can redistribute it and/or modify</span>
+<span class="c"># it under the terms of the GNU General Public License as published by the</span>
+<span class="c"># Free Software Foundation; either version 2, or (at your option) any later</span>
+<span class="c"># version.</span>
+<span class="c">#</span>
+<span class="c"># This program is distributed in the hope that it will be useful, but</span>
+<span class="c"># WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY</span>
+<span class="c"># or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License</span>
+<span class="c"># for more details.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">xmppwebid_utils</span>
+
+<span class="sd">Python functions for generate a X509 client certificate for XMPP or HTTP</span>
+<span class="sd"> WebID authentication (including WebId and XMPP id at SubjectAltName).</span>
+
+<span class="sd">@author:       julia</span>
+<span class="sd">@organization: xmppwebid community</span>
+<span class="sd">@copyright:    author </span>
+<span class="sd">@license:      GNU GPL version 3 or any later version </span>
+<span class="sd">                (details at http://www.gnu.org)</span>
+<span class="sd">@contact:      julia dot anaya at gmail dot com</span>
+<span class="sd">@dependencies: python (&gt;= version 2.6)</span>
+<span class="sd">@change log:</span>
+<span class="sd">@TODO: </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__app__</span> <span class="o">=</span> <span class="s">&quot;xmppwebid_utils&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;julia&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;0.1&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s">&quot;Copyright (c) 2011 julia&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&quot;2011/03/01&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s">&quot; GNU GPL version 3 or any later version (details at http://www.gnu.org)&quot;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+<span class="c">## ----------------------------------------------------------------------</span>
+<span class="c">## administrative functions</span>
+<span class="c">## ----------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">_version</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a formatted version string for the module</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;&quot;&quot;</span><span class="si">%(__app__)s</span><span class="s"> </span><span class="si">%(__version__)s</span><span class="s"></span>
+<span class="si">%(__copyright__)s</span><span class="s"></span>
+<span class="s">released </span><span class="si">%(__date__)s</span><span class="s"></span>
+
+<span class="s">Thanks to:</span>
+<span class="si">%(__credits__)s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="nb">globals</span><span class="p">()</span>
+
+
+<span class="c">## ----------------------------------------------------------------------</span>
+<span class="c">## import and globals</span>
+<span class="c">## ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">M2Crypto</span> <span class="kn">import</span> <span class="n">X509</span><span class="p">,</span> <span class="n">EVP</span><span class="p">,</span> <span class="n">RSA</span><span class="p">,</span> <span class="n">Rand</span><span class="p">,</span> <span class="n">ASN1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">util</span><span class="p">,</span> <span class="n">BIO</span>
+<span class="kn">import</span> <span class="nn">OpenSSL</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">MBSTRING_FLAG</span> <span class="o">=</span> <span class="mh">0x1000</span>
+<span class="n">MBSTRING_ASC</span>  <span class="o">=</span> <span class="n">MBSTRING_FLAG</span> <span class="o">|</span> <span class="mi">1</span>
+
+<span class="n">ID_ON_XMPPADDR_OID</span> <span class="o">=</span> <span class="s">&quot;1.3.6.1.5.5.7.8.5&quot;</span>
+
+<span class="c"># Terminology:</span>
+<span class="c">#C Country</span>
+<span class="c">#CA Certificate authority</span>
+<span class="c">#CN Common Name</span>
+<span class="c">#CSR Certificate signing request</span>
+<span class="c">#DER Distinguished Encoding Rules</span>
+<span class="c">#O Organization</span>
+<span class="c">#OU Organizational Unit</span>
+
+<span class="c"># Default certificate Subject, Issuer</span>
+<span class="n">O</span> <span class="o">=</span> <span class="s">&#39;FOAF+SSL&#39;</span>
+<span class="n">OU</span> <span class="o">=</span><span class="s">&#39;The Community of Self Signers&#39;</span>
+<span class="n">CN</span> <span class="o">=</span> <span class="s">&quot;Not a Certification Authority&quot;</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+ <span class="s">&#39;get_serial_from_file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;set_serial&#39;</span><span class="p">,</span>
+ <span class="s">&#39;set_valtime&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;gen_keypair&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;gen_csr&#39;</span><span class="p">,</span>
+ <span class="s">&#39;set_csr_subject&#39;</span><span class="p">,</span>
+ <span class="s">&#39;set_csr_xmppwebid&#39;</span><span class="p">,</span>
+ <span class="s">&#39;sign_CSR&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;gen_cert_from_csr&#39;</span><span class="p">,</span>
+ <span class="s">&#39;set_cert_xmppwebid&#39;</span><span class="p">,</span>
+ <span class="s">&#39;sign_cert&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;save_pkey_cert_to_pemfile&#39;</span><span class="p">,</span>
+ <span class="s">&#39;save_pkey_cert_to_file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;save_pkcs12cert_to_file&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;gen_pkcs12cert_from_pkey_cert&#39;</span><span class="p">,</span>
+ <span class="s">&#39;gen_pkey_cert_pemfile_from_pkcs12cert_file_save2file&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;gen_selfsigned_cert&#39;</span><span class="p">,</span>
+ <span class="s">&#39;gen_selfsigned_cert_and_save2file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;gen_PEMcert_from_cert_pkey_file_save2file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;gen_pkcs12cert_from_pkey_cert_file_save2file&#39;</span><span class="p">,</span>
+ 
+ 
+ <span class="s">&#39;get_cert_from_certfile&#39;</span><span class="p">,</span>
+ <span class="s">&#39;get_pkey_from_pkfile&#39;</span><span class="p">,</span>
+ <span class="s">&#39;get_cert_pkey_from_pkcs12cert&#39;</span><span class="p">,</span>
+ <span class="s">&#39;get_pkcs12cert_from_pkcs12cert_file&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;get_modulus_exponent_from_cert_and_pkey_file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;get_modulus_exponent_from_cert_file&#39;</span><span class="p">,</span>
+ <span class="s">&#39;get_modulus_exponent_from_FOAF&#39;</span><span class="p">,</span>
+ 
+ <span class="s">&#39;check_csr&#39;</span><span class="p">,</span> 
+ <span class="s">&#39;validate_xmppwebid_rsa&#39;</span><span class="p">,</span>
+ <span class="s">&#39;verify_CA_cert&#39;</span><span class="p">]</span>
+
+<span class="c">## ----------------------------------------------------------------------</span>
+<span class="c">## functions</span>
+<span class="c">## ----------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="get_serial_from_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_serial_from_file">[docs]</a><span class="k">def</span> <span class="nf">get_serial_from_file</span><span class="p">(</span><span class="n">serial_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert_serial.txt&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get serial number from file</span>
+<span class="sd">    </span>
+<span class="sd">    @param serial_path: serial file path</span>
+<span class="sd">    @type serial_path: string</span>
+<span class="sd">    @return: serial number</span>
+<span class="sd">    @rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">serial_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">serial_path</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">serial_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">serial_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span> <span class="n">number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">serial_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">serial_path</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">serial_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+    <span class="n">serial_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">number</span>
+    </div>
+<div class="viewcode-block" id="set_valtime"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.set_valtime">[docs]</a><span class="k">def</span> <span class="nf">set_valtime</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set certificate valid time</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert: certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @param years: number of years the certificate is going to be valid</span>
+<span class="sd">    @type years: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="n">years</span><span class="o">*</span><span class="mi">365</span>
+<span class="c">#    t = long(time.time()) + time.timezone</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">ASN1</span><span class="o">.</span><span class="n">ASN1_UTCTIME</span><span class="p">()</span>
+    <span class="n">now</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">now</span><span class="o">.</span><span class="n">get_datetime</span><span class="p">())</span>
+    <span class="n">nowPlusYear</span> <span class="o">=</span> <span class="n">ASN1</span><span class="o">.</span><span class="n">ASN1_UTCTIME</span><span class="p">()</span>
+    <span class="n">nowPlusYear</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="n">days</span><span class="p">)</span>
+    <span class="c"># later.set_time(int(time.time()+3600*24*7))</span>
+<span class="c">#    return now, nowPlusYear</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_not_before</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">get_not_before</span><span class="p">())</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_not_after</span><span class="p">(</span><span class="n">nowPlusYear</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">get_not_after</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="set_serial"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.set_serial">[docs]</a><span class="k">def</span> <span class="nf">set_serial</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set certificate serial number</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert: certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @param serial_number: certificate serial number</span>
+<span class="sd">    @type serial_number: string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">serial</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">asn1_integer_new</span><span class="p">()</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">asn1_integer_set</span><span class="p">(</span><span class="n">serial</span><span class="p">,</span><span class="n">serial_number</span><span class="p">)</span>
+    <span class="n">m2</span><span class="o">.</span><span class="n">x509_set_serial_number</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">x509</span><span class="p">,</span><span class="n">serial</span><span class="p">)</span>
+<span class="c">#    return cert</span>
+</div>
+<div class="viewcode-block" id="gen_keypair"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_keypair">[docs]</a><span class="k">def</span> <span class="nf">gen_keypair</span><span class="p">(</span><span class="n">bits</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create RSA key pair</span>
+<span class="sd">    Equivalent to: openssl genrsa -des3 -out client.key 1024</span>
+<span class="sd">    </span>
+<span class="sd">    @param bits: key bits length</span>
+<span class="sd">    @type bits: int</span>
+<span class="sd">    @return: public key </span>
+<span class="sd">    @rtype: EVP.PKey</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">EVP</span><span class="o">.</span><span class="n">PKey</span><span class="p">()</span>
+    <span class="n">rsa</span> <span class="o">=</span> <span class="n">RSA</span><span class="o">.</span><span class="n">gen_key</span><span class="p">(</span><span class="n">bits</span><span class="p">,</span> <span class="mi">65537</span><span class="p">)</span>
+    <span class="n">pkey</span><span class="o">.</span><span class="n">assign_rsa</span><span class="p">(</span><span class="n">rsa</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Generated private RSA key&quot;</span>
+    <span class="c"># Print the new private key as a PEM-encoded (but unencrypted) string</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">rsa</span><span class="o">.</span><span class="n">as_pem</span><span class="p">(</span><span class="n">cipher</span><span class="o">=</span><span class="bp">None</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pkey</span>
+</div>
+<div class="viewcode-block" id="gen_csr"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_csr">[docs]</a><span class="k">def</span> <span class="nf">gen_csr</span><span class="p">(</span><span class="n">pkey</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an x509 CSR (Certificate Signing Request)</span>
+<span class="sd">    Equivalent to: openssl req -new -key client.key -out client.csr</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: EVP.PKey</span>
+<span class="sd">    @return:  x509 request</span>
+<span class="sd">    @rtype: X509.Request</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># create x509 request</span>
+    <span class="n">csr</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+
+    <span class="c"># set public key</span>
+    <span class="n">csr</span><span class="o">.</span><span class="n">set_pubkey</span><span class="p">(</span><span class="n">pkey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">csr</span>
+</div>
+<div class="viewcode-block" id="set_csr_xmppwebid"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.set_csr_xmppwebid">[docs]</a><span class="k">def</span> <span class="nf">set_csr_xmppwebid</span><span class="p">(</span><span class="n">csr</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the CSR SubjectAltName and Subject</span>
+
+<span class="sd">    @param csr:  x509 request</span>
+<span class="sd">    @type csr: X509.Request    </span>
+<span class="sd">    @param id_xmpp: xmpp id</span>
+<span class="sd">    @param webid: FOAF WebId</span>
+<span class="sd">    @type id_xmpp: string</span>
+<span class="sd">    @type webid: string</span>
+<span class="sd">    @return:  x509 request</span>
+<span class="sd">    @rtype: X509.Request</span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="c"># if the req is going to be signed by a ca</span>
+    <span class="c"># there is not need to add CN because the ca cert is going to overwrite it</span>
+    <span class="c"># optional</span>
+    <span class="c"># Create a new X509_Name object for our new certificate</span>
+    <span class="n">x509_name</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">X509_Name</span><span class="p">()</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">O</span> <span class="o">=</span> <span class="n">O</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">OU</span> <span class="o">=</span> <span class="n">OU</span> <span class="c">#+&quot;/UID=&quot;+webid</span>
+    <span class="c"># set Subject commonName</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">CN</span> <span class="o">=</span><span class="s">&quot;(Personal)&quot;</span><span class="c">#+webid + &quot;/&quot;+ ID_ON_XMPPADDR_OID + &quot;=&quot; + id_xmpp</span>
+    
+<span class="c">#    x509_name.add_entry_by_txt(field=&#39;CN&#39;, type=MBSTRING_ASC, </span>
+<span class="c">#        entry=&#39;(Personal)&#39;+webid + &#39;/&#39;+ ID_ON_XMPPADDR_OID + &#39;=&#39; + id_xmpp, len=-1, loc=-1, set=0 ) </span>
+        
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Subject name in CSR: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">x509_name</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Subject name in CSR: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">x509_name</span>
+        
+    <span class="c"># Set the subject</span>
+    <span class="n">csr</span><span class="o">.</span><span class="n">set_subject_name</span><span class="p">(</span><span class="n">x509_name</span><span class="p">)</span>
+
+    <span class="c"># set subjectAltName extension</span>
+    <span class="n">ext1</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">new_extension</span><span class="p">(</span><span class="s">&#39;subjectAltName&#39;</span><span class="p">,</span> <span class="s">&#39;URI:</span><span class="si">%s</span><span class="s">, otherName:</span><span class="si">%s</span><span class="s">;UTF8:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">webid</span><span class="p">,</span> <span class="n">ID_ON_XMPPADDR_OID</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">))</span>
+    <span class="n">extstack</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">X509_Extension_Stack</span><span class="p">()</span>
+    <span class="n">extstack</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">ext1</span><span class="p">)</span>
+    <span class="n">csr</span><span class="o">.</span><span class="n">add_extensions</span><span class="p">(</span><span class="n">extstack</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">csr</span>
+</div>
+<div class="viewcode-block" id="set_csr_subject"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.set_csr_subject">[docs]</a><span class="k">def</span> <span class="nf">set_csr_subject</span><span class="p">(</span><span class="n">csr</span><span class="p">,</span> <span class="n">CN</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">O</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">OU</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">Email</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the CSR Subject data</span>
+<span class="sd">    </span>
+<span class="sd">    @param CN: certificate commonName</span>
+<span class="sd">    @param C: certificate countryName</span>
+<span class="sd">    @param O: certificate organizationName</span>
+<span class="sd">    @param OU: certificate organizationalUnitName</span>
+<span class="sd">    @param Email: certificate emailAddress</span>
+<span class="sd">    @type CN: string</span>
+<span class="sd">    @type C: string</span>
+<span class="sd">    @type O: string</span>
+<span class="sd">    @type OU: string</span>
+<span class="sd">    @type Email: string</span>
+<span class="sd">    @return:  x509 request</span>
+<span class="sd">    @rtype: X509.Request</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x509_name</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">X509_Name</span><span class="p">()</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">CN</span> <span class="o">=</span> <span class="n">CN</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">O</span> <span class="o">=</span> <span class="n">O</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">OU</span> <span class="o">=</span> <span class="n">OU</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">Email</span> <span class="o">=</span> <span class="n">Email</span>
+    <span class="n">csr</span><span class="o">.</span><span class="n">set_subject_name</span><span class="p">(</span><span class="n">x509_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">csr</span>
+    </div>
+<div class="viewcode-block" id="sign_CSR"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.sign_CSR">[docs]</a><span class="k">def</span> <span class="nf">sign_CSR</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span> <span class="n">csr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sign the CSR</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: EVP.PKey</span>
+<span class="sd">    @param csr:  x509 request</span>
+<span class="sd">    @type csr: X509.Request </span>
+<span class="sd">    @return:  x509 request, public key</span>
+<span class="sd">    @rtype: X509.Request, EVP.PKey</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># sign the x509 certificate request with public key</span>
+    <span class="n">csr</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span><span class="s">&#39;sha1&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Generated new client CSR&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">csr</span><span class="o">.</span><span class="n">as_pem</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">csr</span><span class="p">,</span> <span class="n">pkey</span>
+</div>
+<div class="viewcode-block" id="gen_cert_from_csr"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_cert_from_csr">[docs]</a><span class="k">def</span> <span class="nf">gen_cert_from_csr</span><span class="p">(</span><span class="n">csr</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an x509 certificate from CSR with default values</span>
+<span class="sd">    </span>
+<span class="sd">    @param csr: x509 certificate request </span>
+<span class="sd">    @type csr: X509.Request</span>
+<span class="sd">    @param serial_number: certificate serial number</span>
+<span class="sd">    @type serial_number: string</span>
+<span class="sd">    @param years: number of years the certificate is going to be valid</span>
+<span class="sd">    @type years: int</span>
+<span class="sd">    @return: x509 certificate</span>
+<span class="sd">    @rtype: X509.X509</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># create x509 certificate</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">X509</span><span class="p">()</span>
+    <span class="c"># get public key from request</span>
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">csr</span><span class="o">.</span><span class="n">get_pubkey</span><span class="p">()</span>
+    <span class="c"># set public key, pkey if not csr created</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_pubkey</span><span class="p">(</span><span class="n">pkey</span><span class="p">)</span>
+
+    <span class="c"># the cert subject is the same as csr subject</span>
+    <span class="c"># get subject from request</span>
+    <span class="n">x509_name</span> <span class="o">=</span> <span class="n">csr</span><span class="o">.</span><span class="n">get_subject</span><span class="p">()</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Subject name in cert: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">x509_name</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Subject name in cert: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">x509_name</span>
+    <span class="c"># Set the new cert subject</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_subject</span><span class="p">(</span><span class="n">x509_name</span><span class="p">)</span> <span class="c"># the same if a csr subject was created</span>
+
+    <span class="c"># set version</span>
+    <span class="c">#@TODO: check that changing jabberd version here can remain 3</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_version</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c">#@TODO: set a real serial number</span>
+    <span class="n">set_serial</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">serial_number</span><span class="p">)</span>
+
+    <span class="c"># Set Cert validity time</span>
+    <span class="n">set_valtime</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">years</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cert</span>
+</div>
+<div class="viewcode-block" id="set_cert_xmppwebid"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.set_cert_xmppwebid">[docs]</a><span class="k">def</span> <span class="nf">set_cert_xmppwebid</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the SubjectAltName, Issuer and Subject</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert: x509 certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @param id_xmpp: xmpp id</span>
+<span class="sd">    @param webid: FOAF WebId</span>
+<span class="sd">    @type id_xmpp: string</span>
+<span class="sd">    @type webid: string</span>
+<span class="sd">    @return: x509 certificate</span>
+<span class="sd">    @rtype: X509.X509</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># optional</span>
+    <span class="c"># the issuer is going to be the same, ?</span>
+    <span class="n">x509_name</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">X509_Name</span><span class="p">()</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">O</span> <span class="o">=</span> <span class="n">O</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">OU</span> <span class="o">=</span> <span class="n">OU</span>
+    <span class="c"># set Subject commonName</span>
+    <span class="n">x509_name</span><span class="o">.</span><span class="n">CN</span> <span class="o">=</span> <span class="n">CN</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">set_issuer</span><span class="p">(</span><span class="n">x509_name</span><span class="p">)</span>
+
+    <span class="c"># set subjectAltName extension</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">X509</span><span class="o">.</span><span class="n">new_extension</span><span class="p">(</span><span class="s">&#39;subjectAltName&#39;</span><span class="p">,</span> <span class="s">&#39;URI:</span><span class="si">%s</span><span class="s">, otherName:</span><span class="si">%s</span><span class="s">;UTF8:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">webid</span><span class="p">,</span> <span class="n">ID_ON_XMPPADDR_OID</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">))</span>
+    <span class="n">ext</span><span class="o">.</span><span class="n">set_critical</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">add_ext</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cert</span>
+
+    </div>
+<div class="viewcode-block" id="sign_cert"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.sign_cert">[docs]</a><span class="k">def</span> <span class="nf">sign_cert</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span> <span class="n">cert</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sign the cert</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: EVP.PKey</span>
+<span class="sd">    @param cert:  x509 certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @return:  x509 certificate, public key</span>
+<span class="sd">    @rtype: X509.X509, EVP.PKey</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># sign the x509 certificate with public key generated in the CSR</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span> <span class="s">&#39;sha1&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span>
+</div>
+<div class="viewcode-block" id="gen_selfsigned_cert"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_selfsigned_cert">[docs]</a><span class="k">def</span> <span class="nf">gen_selfsigned_cert</span><span class="p">(</span><span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an x509 self-signed certificate</span>
+<span class="sd">    Equivalent to: openssl x509 -req -days 365 -in client.csr -signkey client.key -out client.crt</span>
+<span class="sd">    </span>
+<span class="sd">    @param id_xmpp: xmpp id</span>
+<span class="sd">    @param webid: FOAF WebId</span>
+<span class="sd">    @type id_xmpp: string</span>
+<span class="sd">    @type webid: string</span>
+<span class="sd">    @param serial_number: certificate serial number</span>
+<span class="sd">    @type serial_number: string</span>
+<span class="sd">    @param years: number of years the certificate is going to be valid</span>
+<span class="sd">    @type years: int</span>
+<span class="sd">    @return:  x509 self-signed certificate, private key</span>
+<span class="sd">    @rtype: tuple (X509.X509, EVP.PKey)</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">gen_keypair</span><span class="p">()</span>
+    <span class="n">csr</span> <span class="o">=</span> <span class="n">gen_csr</span><span class="p">(</span><span class="n">pkey</span><span class="p">)</span>
+    <span class="n">csr</span> <span class="o">=</span> <span class="n">set_csr_xmppwebid</span><span class="p">(</span><span class="n">csr</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">)</span>
+    <span class="n">csr</span><span class="p">,</span> <span class="n">pkey</span> <span class="o">=</span> <span class="n">sign_CSR</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span> <span class="n">csr</span><span class="p">)</span>
+    
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">gen_cert_from_csr</span><span class="p">(</span><span class="n">csr</span><span class="p">,</span> <span class="n">serial_number</span><span class="p">,</span> <span class="n">years</span><span class="p">)</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">set_cert_xmppwebid</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">)</span>
+    <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span> <span class="o">=</span> <span class="n">sign_cert</span><span class="p">(</span><span class="n">pkey</span><span class="p">,</span> <span class="n">cert</span><span class="p">)</span>
+
+    <span class="c"># Print the new certificate as a PEM-encoded string</span>
+    <span class="k">print</span> <span class="s">&quot;Generated new self-signed client certificate&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">as_pem</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span>
+</div>
+<span class="k">def</span> <span class="nf">verify_CA_cert</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">cacert</span><span class="p">):</span>
+    <span class="c"># verify</span>
+    <span class="k">print</span> <span class="s">&quot;Client certificate verfication with CA certificate public key&quot;</span>
+    <span class="k">print</span> <span class="n">m2</span><span class="o">.</span><span class="n">x509_verify</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">x509</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">x509_get_pubkey</span><span class="p">(</span><span class="n">cacert</span><span class="o">.</span><span class="n">x509</span><span class="p">))</span>
+
+<div class="viewcode-block" id="get_modulus_exponent_from_cert_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_modulus_exponent_from_cert_file">[docs]</a><span class="k">def</span> <span class="nf">get_modulus_exponent_from_cert_file</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the modulus and exponent of RSA Public Key from a PEM Certificate file</span>
+<span class="sd">    m2.rsa_get_e(rsa.rsa) return something like &#39;\x00\x00\x00\x03\x01\x00\x01&#39;</span>
+<span class="sd">    so to get the decimal value (65537), two crufty methods</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @return: tuple(modulus, exponent)</span>
+<span class="sd">    @rtype: tuple (hex, int)</span>
+<span class="sd">    @TODO: replace the exponent method with something cleaner</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span><span class="o">=</span><span class="n">X509</span><span class="o">.</span><span class="n">load_cert</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span>
+    <span class="n">pubkey</span> <span class="o">=</span> <span class="n">cert</span><span class="o">.</span><span class="n">get_pubkey</span><span class="p">()</span>
+    <span class="n">modulus</span> <span class="o">=</span> <span class="n">pubkey</span><span class="o">.</span><span class="n">get_modulus</span><span class="p">()</span>
+    
+    <span class="n">pkey_rsa</span> <span class="o">=</span> <span class="n">pubkey</span><span class="o">.</span><span class="n">get_rsa</span><span class="p">()</span>
+    <span class="n">e</span>  <span class="o">=</span> <span class="n">m2</span><span class="o">.</span><span class="n">rsa_get_e</span><span class="p">(</span><span class="n">pkey_rsa</span><span class="o">.</span><span class="n">rsa</span><span class="p">)</span>
+<span class="c">#    exponent = int(eval(repr(e[-3:]).replace(&#39;\\x&#39;, &#39;&#39;)),16)</span>
+    <span class="n">exponent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;</span><span class="si">%2.2d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]]),</span><span class="mi">16</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">modulus</span><span class="p">,</span> <span class="n">exponent</span>
+</div>
+<div class="viewcode-block" id="get_modulus_exponent_from_cert_and_pkey_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_modulus_exponent_from_cert_and_pkey_file">[docs]</a><span class="k">def</span> <span class="nf">get_modulus_exponent_from_cert_and_pkey_file</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the modulus and exponent of RSA Public Key from a PEM Certificate and</span>
+<span class="sd">    private key files</span>
+<span class="sd">    m2.rsa_get_e(rsa.rsa) return something like &#39;\x00\x00\x00\x03\x01\x00\x01&#39;</span>
+<span class="sd">    so to get the decimal value (65537), two crufty methods</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @param key_path: public key path</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @return: tuple(modulus, exponent)</span>
+<span class="sd">    @rtype: tuple (hex, int)</span>
+<span class="sd">    @TODO: replace the exponent method with something cleaner</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span><span class="o">=</span><span class="n">X509</span><span class="o">.</span><span class="n">load_cert</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span>
+    <span class="n">pubkey</span> <span class="o">=</span> <span class="n">cert</span><span class="o">.</span><span class="n">get_pubkey</span><span class="p">()</span>
+    <span class="n">modulus</span> <span class="o">=</span> <span class="n">pubkey</span><span class="o">.</span><span class="n">get_modulus</span><span class="p">()</span>
+    
+    <span class="n">pkey_rsa</span> <span class="o">=</span> <span class="n">RSA</span><span class="o">.</span><span class="n">load_key</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="n">e</span>  <span class="o">=</span> <span class="n">m2</span><span class="o">.</span><span class="n">rsa_get_e</span><span class="p">(</span><span class="n">pkey_rsa</span><span class="o">.</span><span class="n">rsa</span><span class="p">)</span>
+<span class="c">#    exponent = int(eval(repr(e[-3:]).replace(&#39;\\x&#39;, &#39;&#39;)),16)</span>
+    <span class="n">exponent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;</span><span class="si">%2.2d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]]),</span><span class="mi">16</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">modulus</span><span class="p">,</span> <span class="n">exponent</span>
+</div>
+<div class="viewcode-block" id="save_pkey_cert_to_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.save_pkey_cert_to_file">[docs]</a><span class="k">def</span> <span class="nf">save_pkey_cert_to_file</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">,</span> <span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save cert and pkey to files</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: EVP.PKey</span>
+<span class="sd">    @param cert:  x509 certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: public key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @return:  x509 certificate path, public key path</span>
+<span class="sd">    @rtype: tuple (string, string)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># save key without ask for password</span>
+    <span class="n">pkey</span><span class="o">.</span><span class="n">save_key</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">save_pem</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cert_path</span><span class="p">,</span> <span class="n">key_path</span>
+</div>
+<div class="viewcode-block" id="save_pkey_cert_to_pemfile"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.save_pkey_cert_to_pemfile">[docs]</a><span class="k">def</span> <span class="nf">save_pkey_cert_to_pemfile</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">,</span> <span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save cert and pkey as PEM files</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: EVP.PKey</span>
+<span class="sd">    @param cert:  x509 certificate</span>
+<span class="sd">    @type cert: X509.X509</span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: public key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @return:  x509 certificate path, public key path</span>
+<span class="sd">    @rtype: tuple (string, string)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">certdump</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">dump_certificate</span><span class="p">(</span><span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">FILETYPE_PEM</span><span class="p">,</span> <span class="n">cert</span><span class="p">)</span>
+    <span class="n">cert_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">cert_path</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">cert_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">certdump</span><span class="p">)</span>
+    <span class="n">cert_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pkeydump</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">dump_privatekey</span><span class="p">(</span><span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">FILETYPE_PEM</span><span class="p">,</span> <span class="n">pkey</span><span class="p">)</span>
+    <span class="n">pkey_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">pkey_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pkeydump</span><span class="p">)</span>
+    <span class="n">pkey</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pkey_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cert_path</span><span class="p">,</span> <span class="n">key_path</span>
+</div>
+<div class="viewcode-block" id="gen_selfsigned_cert_and_save2file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_selfsigned_cert_and_save2file">[docs]</a><span class="k">def</span> <span class="nf">gen_selfsigned_cert_and_save2file</span><span class="p">(</span><span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+        <span class="n">years</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an x509 self-signed certificate and save it as PEM file</span>
+<span class="sd">    </span>
+<span class="sd">    @param id_xmpp: xmpp id</span>
+<span class="sd">    @param webid: FOAF WebId</span>
+<span class="sd">    @type id_xmpp: string</span>
+<span class="sd">    @type webid: string</span>
+<span class="sd">    @param serial_number: certificate serial number</span>
+<span class="sd">    @type serial_number: string</span>
+<span class="sd">    @param years: number of years the certificate is going to be valid</span>
+<span class="sd">    @type years: int</span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: public key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @return:  x509 certificate path, public key path</span>
+<span class="sd">    @rtype: tuple (string, string)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span> <span class="o">=</span> <span class="n">gen_selfsigned_cert</span><span class="p">(</span><span class="n">id_xmpp</span><span class="p">,</span> <span class="n">webid</span><span class="p">)</span>
+    <span class="n">save_pkey_cert_to_file</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">,</span> <span class="n">cert_path</span><span class="p">,</span> <span class="n">key_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cert_path</span><span class="p">,</span> <span class="n">key_path</span>
+</div>
+<span class="k">def</span> <span class="nf">check_csr</span><span class="p">(</span><span class="n">csr</span><span class="p">):</span>
+    <span class="k">pass</span>
+    <span class="c">#R  = csr.as_der()</span>
+    <span class="c">#from pyasn1.codec.der import decoder as asn1</span>
+    <span class="c"># a = asn1.decode(R)</span>
+
+<div class="viewcode-block" id="get_pkey_from_pkfile"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_pkey_from_pkfile">[docs]</a><span class="k">def</span> <span class="nf">get_pkey_from_pkfile</span><span class="p">(</span><span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get public key from file</span>
+<span class="sd">    </span>
+<span class="sd">    @param key_path: public key path</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @return:  public key</span>
+<span class="sd">    @rtype: OpenSSL.crypto.PKey</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">load_privatekey</span><span class="p">(</span><span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">FILETYPE_PEM</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">pkey</span>
+</div>
+<div class="viewcode-block" id="get_cert_from_certfile"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_cert_from_certfile">[docs]</a><span class="k">def</span> <span class="nf">get_cert_from_certfile</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get certificate from file</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @return:  x509 certificate</span>
+<span class="sd">    @rtype: OpenSSL.crypto.X509</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">load_certificate</span><span class="p">(</span><span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">FILETYPE_PEM</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">cert</span>
+</div>
+<div class="viewcode-block" id="gen_pkcs12cert_from_pkey_cert"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_pkcs12cert_from_pkey_cert">[docs]</a><span class="k">def</span> <span class="nf">gen_pkcs12cert_from_pkey_cert</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a PKCS12 certificate from x509 certificate and public key</span>
+<span class="sd">    </span>
+<span class="sd">    @param pkey: public key </span>
+<span class="sd">    @type pkey: OpenSSL.crypto.PKey</span>
+<span class="sd">    @param cert:  x509 certificate</span>
+<span class="sd">    @type cert: OpenSSL.crypto.X509</span>
+<span class="sd">    @return: PKCS12 certificate</span>
+<span class="sd">    @rtype: OpenSSL.crypto.PKCS12</span>
+<span class="sd">    @TODO: create pkcs12 m2crypto function </span>
+<span class="sd">            (http://osdir.com/ml/python.cryptography/2004-05/msg00001.html)</span>
+<span class="sd">    @TODO: create pkcs12 with password interactively</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p12</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">PKCS12</span><span class="p">()</span>
+    <span class="n">p12</span><span class="o">.</span><span class="n">set_privatekey</span><span class="p">(</span><span class="n">pkey</span><span class="p">)</span>
+    <span class="n">p12</span><span class="o">.</span><span class="n">set_certificate</span><span class="p">(</span><span class="n">cert</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p12</span>
+</div>
+<div class="viewcode-block" id="save_pkcs12cert_to_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.save_pkcs12cert_to_file">[docs]</a><span class="k">def</span> <span class="nf">save_pkcs12cert_to_file</span><span class="p">(</span><span class="n">p12</span><span class="p">,</span> <span class="n">p12cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.p12&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save PKCS12 certificate to file</span>
+<span class="sd">    </span>
+<span class="sd">    @param p12: PKCS12 certificate</span>
+<span class="sd">    @type p12: OpenSSL.crypto.PKCS12</span>
+<span class="sd">    @param p12cert_path: PKCS12 certificate path</span>
+<span class="sd">    @type p12cert_path: string</span>
+<span class="sd">    @return: PKCS12 certificate path</span>
+<span class="sd">    @rtype: string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p12cert</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">p12cert_path</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">p12cert</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">p12</span><span class="o">.</span><span class="n">export</span><span class="p">())</span>
+    <span class="n">p12cert</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">p12cert_path</span>
+
+</div>
+<div class="viewcode-block" id="gen_pkcs12cert_from_pkey_cert_file_save2file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_pkcs12cert_from_pkey_cert_file_save2file">[docs]</a><span class="k">def</span> <span class="nf">gen_pkcs12cert_from_pkey_cert_file_save2file</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">,</span> 
+        <span class="n">p12cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.p12&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a PKCS12 certificate and save it from x509 certificate and private </span>
+<span class="sd">    key files as PEM</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: private key path</span>
+<span class="sd">    @param p12cert_path: private key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @type p12cert_path: string</span>
+<span class="sd">    @return: PKCS12 certificate path</span>
+<span class="sd">    @rtype: string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">get_pkey_from_pkfile</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">get_cert_from_certfile</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span>
+    <span class="n">p12</span> <span class="o">=</span> <span class="n">gen_pkcs12cert_from_pkey_cert</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">)</span>
+    <span class="n">p12cert_path</span> <span class="o">=</span> <span class="n">save_pkcs12cert_to_file</span><span class="p">(</span><span class="n">p12</span><span class="p">,</span> <span class="n">p12cert_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p12cert_path</span>
+</div>
+<div class="viewcode-block" id="get_pkcs12cert_from_pkcs12cert_file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_pkcs12cert_from_pkcs12cert_file">[docs]</a><span class="k">def</span> <span class="nf">get_pkcs12cert_from_pkcs12cert_file</span><span class="p">(</span><span class="n">p12cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.p12&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get PKCS12 from file</span>
+<span class="sd">    </span>
+<span class="sd">    @param p12cert_path: private key path</span>
+<span class="sd">    @type p12cert_path: string</span>
+<span class="sd">    @return: PKCS12 certificate</span>
+<span class="sd">    @rtype: OpenSSL.crypto.PKCS12</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p12</span> <span class="o">=</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">load_pkcs12</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">p12cert_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">p12</span>
+</div>
+<div class="viewcode-block" id="get_cert_pkey_from_pkcs12cert"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.get_cert_pkey_from_pkcs12cert">[docs]</a><span class="k">def</span> <span class="nf">get_cert_pkey_from_pkcs12cert</span><span class="p">(</span><span class="n">p12</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get X509 certificate and private key from PKCS12 </span>
+<span class="sd">    </span>
+<span class="sd">    @param p12: PKCS12 certificate</span>
+<span class="sd">    @type p12: OpenSSL.crypto.PKCS12</span>
+<span class="sd">    @return:  x509 self-signed certificate, public key</span>
+<span class="sd">    @rtype: tuple (OpenSSL.crypto.X509, OpenSSL.crypto.PKey)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="n">p12</span><span class="o">.</span><span class="n">get_certificate</span><span class="p">()</span>
+    <span class="n">pkey</span> <span class="o">=</span> <span class="n">p12</span><span class="o">.</span><span class="n">get_privatekey</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span>
+</div>
+<div class="viewcode-block" id="gen_pkey_cert_pemfile_from_pkcs12cert_file_save2file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_pkey_cert_pemfile_from_pkcs12cert_file_save2file">[docs]</a><span class="k">def</span> <span class="nf">gen_pkey_cert_pemfile_from_pkcs12cert_file_save2file</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">,</span> 
+        <span class="n">p12cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.p12&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get X509 certificate and private key from PKCS12 file and save them as PEM</span>
+<span class="sd">    key files as PEM</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: private key path</span>
+<span class="sd">    @param p12cert_path: private key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @type p12cert_path: string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p12</span> <span class="o">=</span> <span class="n">get_pkcs12cert_from_pkcs12cert_file</span><span class="p">(</span><span class="n">p12cert_path</span><span class="p">)</span>
+    <span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span> <span class="o">=</span> <span class="n">get_cert_pkey_from_pkcs12cert</span><span class="p">(</span><span class="n">p12</span><span class="p">)</span>
+    <span class="n">save_pkey_cert_to_pemfile</span><span class="p">(</span><span class="n">cert</span><span class="p">,</span> <span class="n">pkey</span><span class="p">,</span> <span class="n">cert_path</span><span class="p">,</span> <span class="n">key_path</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="gen_PEMcert_from_cert_pkey_file_save2file"><a class="viewcode-back" href="../../api.html#xmppwebid_certs.xmppwebid_utils.gen_PEMcert_from_cert_pkey_file_save2file">[docs]</a><span class="k">def</span> <span class="nf">gen_PEMcert_from_cert_pkey_file_save2file</span><span class="p">(</span><span class="n">cert_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert.pem&#39;</span><span class="p">,</span> 
+        <span class="n">key_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_key.key&#39;</span><span class="p">,</span>
+        <span class="n">certkey_path</span><span class="o">=</span><span class="s">&#39;/tmp/xmppwebid_cert_key.pem&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a PEM file with X509 certificate and private key from PEM files</span>
+<span class="sd">    </span>
+<span class="sd">    @param cert_path: certificate path</span>
+<span class="sd">    @param key_path: private key path</span>
+<span class="sd">    @param certkey_path: private key path</span>
+<span class="sd">    @type cert_path: string</span>
+<span class="sd">    @type key_path: string</span>
+<span class="sd">    @type certkey_path: string</span>
+<span class="sd">    @return: PEM file with X509 certificate and private key path</span>
+<span class="sd">    @rtype: string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cert</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">cert_path</span><span class="p">)</span>
+    <span class="n">cert_data</span> <span class="o">=</span> <span class="n">cert</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">cert</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="n">cert_data</span> <span class="o">+=</span> <span class="n">key</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">key</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">certkey</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">certkey_path</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">certkey</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cert_data</span><span class="p">)</span>
+    <span class="n">certkey</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">certkey_path</span>
+
+<span class="c">#view certificate details: openssl x509 -in filename.crt -noout -text</span>
+</div>
+<span class="k">def</span> <span class="nf">get_modulus_exponent_from_FOAF</span><span class="p">(</span><span class="n">foaf</span><span class="p">):</span>
+    <span class="k">pass</span>
+<span class="c">#    if type(foaf) == rdf</span>
+<span class="c">#    if type(foaf) == rdfa</span>
+
+<span class="k">def</span> <span class="nf">validate_xmppwebid_rsa</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">xmppwebid_certs v0.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Julia Anaya.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

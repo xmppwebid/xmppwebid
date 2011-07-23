@@ -9,7 +9,8 @@
     body {
       margin-top: 1.0em;
       background-color: #ffffff;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
+      font-family: FreeSans, Helvetica, Arial, san-serif;
+      font-size: 15px;
       color: #000000;
     }
     #container {
@@ -50,16 +51,21 @@
       authentication to the <a href="http://xmpp.org/">XMPP</a> protocol.
     </div>
     
-    <h2>XMPPWebID certificate generator</h2> 
-    <p>XMPPWebID certificate generator is an <a href="http://djangoproject.com/">Django</a> app intended to generate valid
-    certificates for HTPP and XMPP.</p> 
-    <p>It creates XMPP account and generates the certificate that is installed in your
-    browser and can also be installed in a XMPP client.</p> 
-    <p>To use your certificate in XMPP (Jabber) you would need a client that supports
-    user certificates (currently <a href="http://gajim.org/">Gajim</a> v0.14) and a Jabber server software that
-    supports SASL EXTERNAL authentication (<a href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>).</p> 
-    
-    
+    <p>Currently, it's composed by:
+    <ul>
+      <li><a href="https://github.com/xmppwebid/xmppwebid/tree/master/python-xmppwebid">python-xmppwebid</a>: utilities to create and validate XMPPWebID-enabled certificates</li>
+      <li><a href="https://github.com/xmppwebid/xmppwebid/tree/master/django-xmppwebid-provider">django-xmppwebid-provider</a>: a <a href="http://djangoproject.com/">Django</a> webapp that creates an XMPP account and generates a certificate that can be installed in a XMPP client or browser</li>
+    </ul>
+    <p>To use your certificate in XMPP (Jabber) you would need:</p>
+    <ul>
+      <li>a client that supports user certificates (currently <a href="http://gajim.org/">Gajim</a> v0.14)</li>
+      <li>and a Jabber server software that     supports SASL EXTERNAL authentication (<a href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>)</li>
+    </ul>
+    <p>Coming soon...</p>
+    <ul>
+      <li>django-webid-auth: a Django middleware to provide WebID autentication</li>
+      <li>django-webid-profile: a Django webapp to generate a WebID profile and URI</li>
+    </ul>
     <h2>Technologies</h2>
     <p><ul> 
       <li>XMPP protocol</li> 
@@ -73,13 +79,13 @@
       <li><a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> to extract WebID URI, public keys and Jabber account</li> 
     </ul> </p>
     
-    <!--<h2>Publications</h2>-->
-    
-    <h2>Install</h2> 
-    <p>To install XMPPWebID  certificate generator see <a href="/xmppwebid/doc/install.html">installation instructions</a></p> 
+    <h2>Publications</h2>
+    <ul>
+      <li><a href="papers/fsw2011/fsw2011-xmppwebid.html">WebID-enabled XMPP: a bridge to the social web on your IM and beyond</a>, <a href="slides/fsw2011/index.html">slides</a> (Paper at <a href="http://d-cent.org/fsw2011/">FSW2011</a>)</li>
+    </ul>
     
     <h2>Documentation</h2>
-    <p>See <a href="/xmppwebid/doc/index.html">documentation</a></p>
+    <p>See <a href="doc/index.html">documentation</a></p>
 
     <h2>Download</h2>
     <p>
@@ -92,18 +98,24 @@
       <pre>$ git clone git://github.com/xmppwebid/xmppwebid</pre>
     </p>
 
+    <h2>Bugs and features</h2>
+    <p>If you wish to signal a bug or report a feature request, please fill-in an issue on the <a href=" https://github.com/xmppwebid/xmppwebid/issues">XMPPWebID issue tracker</a></p>
 
-    <!--<h2>License</h2>
-    <p>GPLv3</p>
+    <h2>License</h2>
+    <p>XMPPWebID is copyright 2010 by xmppwebid and is covered by the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a></p>
     
+    <h2>Contact</h2>
+    <p> (xmppwebid at gmail dot com)</p>
+
+    <h2>Acknowledgments</h2>
+    <p><a href="http://lists.foaf-project.org/mailman/listinfo/foaf-protocols">foaf-protocols</a> community 
+    
+    <!--
     <h2>Authors</h2>
     <p>xmppwebid (xmppwebid@gmail.com)
     <br/>
     <br/>      </p>
-    
-    <h2>Contact</h2>
-    <p> (xmppwebid@gmail.com)
-    <br/>      </p>-->
+    -->
 
 
     <div class="footer">

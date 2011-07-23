@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+    "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+  xmlns:geonames="http://www.geonames.org/ontology#" 
+  xmlns:swc="http://data.semanticweb.org/ns/swc/ontology#" 
+  xmlns:cert="http://www.w3.org/ns/auth/cert#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rsa="http://www.w3.org/ns/auth/rsa#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xml:lang="en">
+<head profile="http://www.w3.org/1999/xhtml/vocab"> 
+  <meta property="dc:date dc:created" content="2011-05-07T13:00:00" />
+  <meta rel="dc:creator" href="" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Semantic_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RDFa" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/HTML5" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/SPARQL" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/XMPP" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RDF" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/WebID" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/TLS" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/SASL" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/X509" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/RSA" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Semantic_Social_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Federated_Social_Web" />
+  <meta rel="dc:subject" href="http://dbpedia.org/resource/Distributed_Social_Networks" />
+  <title property="dc:title">WebID-enabled XMPP: a bridge to the social web on your IM and beyond.</title>
+    <link href="./media/css/default.css" rel="stylesheet" type="text/css">
+<!--    <link href="./media/css/prettify.css" rel="stylesheet" type="text/css">-->
+    <link id="prettify-link" href="http://slides.html5rocks.com/src/prettify/prettify.css" rel="stylesheet" disabled="">
+  <script type="text/javascript" charset="UTF-8" src="./media/{common,util}.js"></script>
+  </head>
+  <body typeof="foaf:Document">
+    <div class="presentation">
+      <div id="presentation-counter">1</div>
+      <div class="slides" style="display: block; ">
+      
+      
+        <div class="slide current" id="landing-slide">
+          <style>
+            #landing-slide p {
+              font-size: 35px;
+            }
+            p#disclaimer-message {
+              font-size: 20px;
+            }
+          </style>
+          <section class="middle">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span id="left-init-key" class="key">→</span> key to advance.</p>
+            <p id="disclaimer-message">Having issues seeing the presentation? Read the <a href="http://slides.html5rocks.com/disclaimer.html">disclaimer</a></p>
+          </section>
+          <span class="counter">1</span>
+        </div>
+
+        <div class="slide future" id="controls-slide">
+          <style>
+            #controls-slide li, #controls-slide p {
+              font-size: 35px;
+            }
+          </style>
+          <section>
+            <p>Slides controls, press:</p>
+            <ul>
+              <li><span class="key">←</span> and <span class="key">→</span> to move around.</li>
+              <li><span class="key">Ctrl/Command</span> and <span class="key">+</span> or <span class="key">-</span> to zoom in and out if slides don’t fit.</li>
+              <li><span class="key">T</span> to change the theme.</li>
+              <li><span class="key">H</span> to toggle syntax highlight.</li>
+            </ul>
+          </section>
+          <span class="counter">2</span>
+        </div>
+
+
+        <div class="slide far-future" id="title-slide">
+          <style>
+            #title-slide h1, #title-slide h2 {
+              color: black;
+            }
+            #title-slide h1 {
+              letter-spacing: -2px;
+              font-size: 66px;
+            }
+            #title-slide h2 {
+              //margin-top: -5px;
+              font-size: 40px;
+              letter-spacing: -1px;
+            }
+            section {
+              margin-top: 125px;
+              font-size: 20px;
+            } 
+            
+            .conf {
+              text-align:left;
+            }
+          </style>
+          <section class="middle">
+            <hgroup>
+              <h1 property="dct:title">
+                WebID enabled XMPP: bridging the social web in your IM and beyond
+              </h1>
+              <h2>
+                <span rel="foaf:maker">
+                  <a about="http://xmppwebid.github.com/xmppwebid/benjamin" typeof="foaf:Person" rel="foaf:homepage" href="http://xmppwebid.github.com/xmppwebid/" property="foaf:name">Benjamin Carrillo</a>
+                </span>, 
+                <b><span rel="foaf:maker">
+                  <a about="http://xmppwebid.github.com/xmppwebid/julia" typeof="foaf:Person" rel="foaf:homepage" href="http://xmppwebid.github.com/xmppwebid/" property="foaf:name">Julia Anaya</a>
+                </span></b>
+              </h2>
+              
+              <p rel="swc:relatedToEvent">
+                <span typeof="swc:Conference">
+                  <a rel="foaf:homepage" href="http://d-cent.org/fsw2011/" 
+                    property="rdfs:label">
+                    FSW2011</a>, Saturday, 4th June 2011 
+                  <a rel="geonames:locatedIn" href="http://dbpedia.org/resource/Berlin">
+                   Berlin</a>, Germany
+                </span>
+              </p>
+<!--              <p> Or why you would like to enable WebId auth on XMPP, and some ideas about what to build with it</p>-->
+            </hgroup>
+          </section>
+          <span class="counter">3</span>
+        </div>
+
+
+
+
+        <div class="slide distant-slide" id="xmpp-webid-pros">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>Why XMPP and WebID</h1></header>
+          <section >
+            <ul>
+              <li><b>XMPP</b> is a <b>social, federated</b> paradigm right in its core</li>
+              <li>
+                <ul style ="font-size:70%">
+                  <li>Built-in goodies: real-time, contacts and group managing (roster), presence, conference rooms, video and voice calls (jingle), s2s routing protocol</li>
+                  <li>Extensible: encryption, Publish/Subscribe, Microblogging over XMPP, Activity Streams over XMPP</li>
+                  <li>Compared to HTTP: bi-directional, full-duplex communications, no NAT?</li>
+                  <li>Still plugable into HTTP world: Web Sockets, BOSH...</li>
+                </ul>
+              </li>
+                  <li>Downside: a Jabber ID (JID), profile and roster by server </li>
+              <li><b>WebID</b> is a <b>distributed authentication</b> protocol that allows users to manage their own <b>identities</b> and data <b>privacy</b></li>
+              
+              <li>We can either register an XMPP account to be associated with a WebID, or the XMPP server can provide a new WebID</li>
+            </ul>
+        <!--<svg xmlns="http://www.w3.org/2000/svg">-->
+        <!--</svg>-->
+        <!--<embed src="Xmpp_logo.svg" width="20%" height="20%"-->
+        <!--type="image/svg+xml" />-->
+            <p style ="text-align:center"><img src="./media/xmpp.png" height="5%" width="5%" /></p>
+          </section>
+          <span class="counter">4</span>
+        </div>
+
+
+
+        <div class="slide distant-slide" id="sasl-auth">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>SASL EXTERNAL using id-on-xmpp-addr </h1></header>
+          <section>
+          <ul>
+            <li>XMPP client-to-server authentication supports TLS and SASL with certificates, via SASL EXTERNAL, that is compatible WebID </li>
+
+            <li>Downside: certificates are verified by a Certification Authority, breaking trust distributedness in WebID</li>
+          </ul>
+          <p style ="text-align:center"><img src="./media/250px-TheJabberwocky.jpg" alt="Alice depicted while trying to cut her ties with her former Identity Provider, the Jabberwocky" title="Alice depicted while trying to cut her ties with her former Identity Provider, the Jabberwocky" /></p>
+          </section>
+          <span class="counter">5</span>
+        </div>
+
+
+
+        <div class="slide distant-slide" id="sasl-auth2">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>SASL EXTERNAL using id-on-xmpp-addr and WebID: registration </h1></header>
+          <section>
+      <!--      <li>-->
+      <!--        <ul>-->
+      <!--          <li>key pairs are generated in the HTTP browser</li>-->
+      <!--          <li>app register the JID in the XMPP server (using In-Band-Registration)</li>-->
+      <!--          <li>app encodes the JID and the WebID URI in the user certificate</li>-->
+      <!--          <li>app include in his/her WebID profile the RSA public key and the JID</li>-->
+      <!--          <li>user install the certificate in her/his XMPP client</li>-->
+      <!--          <li>authenticate against that XMPP server or other WebID-enabled HTTP services</li>          -->
+      <!--        </ul>-->
+      <!--      </li>-->
+          <p>Implemented a <a href="http://xmppwebid.github.com/xmppwebid/">demo web application</a> for the registration process</p>
+          <p style ="text-align:center"><img src="./media/XMPPWebIDRegistration.png" height="70%" width="70%" /></p>
+          </section>
+          <span class="counter">6</span>
+        </div>
+
+
+
+        <div class="slide distant-slide" id="sasl-webid-auth">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>SASL EXTERNAL WEBID proposal</h1></header>
+          <section>
+      <!--      <ul>-->
+      <!--        <li>1) client sends X509 certificate (includes WebID URI).</li>-->
+      <!--        <li>2) server attempts to extract public key and WebID URI entries.</li>-->
+      <!--        <li>3) server dereferences WebID URI and extracts RDF data from the resulting document.</li>-->
+      <!--        <li>4) server attempts to verify the public key information. If public key in certificate is found in the list of public keys associated with the claimed WebID URI, the server assumes that the client intends to use this public key to verify their ownership of the WebID URI.</li>-->
+      <!--        <li>5) server verifies that the client owns the private key corresponding to the public key by performing TLS mutual-authentication.</li>-->
+      <!--        <li>6) server checks JID (if any) in certificate id-on-xmpp-address is registered. If not, checks if a JID resource in the WebID profile (if any) is registered via an SPARQL query to check if the claimed identity is known to the server and it is associated with presented credentials. <em>(If the JID is claimed but not registered, or if no identity is claimed, and the server has In-Band-Registration enabled, the registration process can be started at this step, interacting with user to find a non-colliding JID. The server SHOULD associate the public key with this JID for future lookups.)</em> </li>-->
+      <!--        <li> On this step, further authorization rules can be applied </li>-->
+      <!--        <li>7) Mission acomplished! The user has been authenticated  :) </li>-->
+      <!--      </ul>-->
+          <p style ="text-align:center"><img src="./media/XMPPWebIDAuthentication.png" height="70%" width="70%" /></p>
+          </section>
+          <span class="counter">7</span>
+        </div>
+
+
+        <div class="slide distant-slide" id="examples1">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>Example use case: XMPP server WebID plugin?</h1></header>
+          <section>
+          <ul>
+          <li>Certificate creation by the XMPP server (instead of a Web application), usable also by browsers</li>
+          <li>HTTP WebId URI management for XMPP users</li>
+          <li>vCard to FOAF dynamic mapping</li>
+          <li>Roster-based ACLs using Semantic ontologies?</li>
+          </ul>
+          </section>
+          <span class="counter">8</span>
+        </div>
+
+        <div class="slide distant-slide" id="examples2">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header> <h1>Example use case: Joining rules for MUCs</h1></header>
+          <section>
+          <p>Possibility to define <b>access control</b> to certain services if they are sucessfully evaluated against the information provided by dereferencing the WebID URI obtained during SASL-WEBID authentication.</p><!-- is not the same as before?-->
+          <ul>
+          <li><b>Example rule #1:</b> grant access to multi user chat room to WebID users that belong to a certain mailing list / users of certain wiki (group defined in some predefine URI). <b>Ontology-based rules are decentralized and portable.</b></li>
+          </p>
+          <li><b>Example rule #2:</b> grant access to WebId user if he's known by three or more users already in the room.</li>
+          </ul>
+          </section>
+          <span class="counter">9</span>
+        </div>
+
+        <div class="slide distant-slide" id="examples3">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>Example use case: Privacy rules on distributed query forwarding</h1></header>
+          <section>
+          <ul>
+          <li>
+          Experimental W3C <b>SPARQL-XMPP binding</b>: iq stanzas can transport SPARQL payloads. 
+          </li>
+              <li>Personal RDF stores exposed via XMPP transport (rdfbus, jqbus).
+                </li>
+              <li>Apply ACLs to SPARQL queries using query decomposition.? Query forwarding using peer-selection algorithms.
+                </li>
+
+          </section>
+          <span class="counter">10</span>
+        </div>
+
+
+
+        <div class="slide distant-slide" id="summary">
+          <style>
+            .middle {
+              font-size:40px;
+            }
+          </style>
+          <header><h1>Summary</h1></header>
+          <section>
+          <ul>
+          <li>XMPP can benefit from the privacy and identity management of WebID</li>
+          <li>interlinking to HTTP data </li>
+          <li>Web applications can use XMPP as a background protocol transparent to the user</li>
+          
+      <!--    <li>XMPP WebID based authentication can sum the XMPP possibilities to the WebID ones</li>-->
+      <!--    <li>can provide additional privacy and identity management to can allow to link JIDs to identities</li>-->
+      <!--    <li>HTTP world is not incompatible with the XMPP world but can work together</li>-->
+          <li></li>
+          </ul>
+          </section>
+          <span class="counter">11</span>
+        </div>
+
+      </div> <!-- slides -->
+
+    </div> <!-- presentation -->
+
+
+
+
+
+
+
+
+
+    <script defer="">
+      (function() {
+        var doc = document;
+        var disableBuilds = false;
+        
+        var ctr = 0;
+        var spaces = /\s+/, a1 = [''];
+
+        var toArray = function(list) {
+          return Array.prototype.slice.call(list || [], 0);
+        };
+
+        var byId = function(id) {
+          if (typeof id == 'string') { return doc.getElementById(id); }
+          return id;
+        };
+        
+        var query = function(query, root) {
+          return queryAll(query, root)[0];
+        }
+        
+        var queryAll = function(query, root) {
+          if (!query) { return []; }
+          if (typeof query != 'string') { return toArray(query); }
+          if (typeof root == 'string') {
+            root = byId(root);
+            if(!root){ return []; }
+          }
+
+          root = root || document;
+          var rootIsDoc = (root.nodeType == 9);
+          var doc = rootIsDoc ? root : (root.ownerDocument || document);
+
+          // rewrite the query to be ID rooted
+          if (!rootIsDoc || ('>~+'.indexOf(query.charAt(0)) >= 0)) {
+            root.id = root.id || ('qUnique' + (ctr++));
+            query = '#' + root.id + ' ' + query;
+          }
+          // don't choke on something like ".yada.yada >"
+          if ('>~+'.indexOf(query.slice(-1)) >= 0) { query += ' *'; }
+          return toArray(doc.querySelectorAll(query));
+        };
+
+        var strToArray = function(s) {
+          if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+              a1[0] = s;
+              return a1;
+            } else {
+              return s.split(spaces);
+            }
+          }
+          return s;
+        };
+
+        // Needed for browsers that don't support String.trim() (e.g. iPad)
+        var trim = function(str) {
+          return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        };
+
+        var addClass = function(node, classStr) {
+          classStr = strToArray(classStr);
+          var cls = ' ' + node.className + ' ';
+          for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+              cls += c + ' ';
+            }
+          }
+          node.className = trim(cls);
+        };
+
+        var removeClass = function(node, classStr) {
+          var cls;
+          if (classStr !== undefined) {
+            classStr = strToArray(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+              cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+          } else {
+            cls = '';
+          }
+          if (node.className != cls) {
+            node.className = cls;
+          }
+        };
+
+        var toggleClass = function(node, classStr) {
+          var cls = ' ' + node.className + ' ';
+          if (cls.indexOf(' ' + trim(classStr) + ' ') >= 0) {
+            removeClass(node, classStr);
+          } else {
+            addClass(node, classStr);
+          }
+        };
+
+        
+        // modernizr lite via https://gist.github.com/598008
+        var testStyle = function(style) {
+
+          var elem = document.createElement('div');
+          var prefixes = ['Webkit', 'Moz', 'O', 'ms', 'Khtml'];
+          var bool;
+          var bump = function(all, letter) {
+                return letter.toUpperCase();
+              };
+          var prop;
+
+          bool = style in elem.style;
+          prop = style.replace(/^(.)/, bump).replace(/-([a-z])/ig, bump);
+
+          for (var len = prefixes.length; len--; ){
+            if (bool) { 
+              break; 
+            }
+            bool = prefixes[len] + prop in elem.style;
+          }
+
+          document.documentElement.className += ' ' + (bool ? '' : 'no-') + style.replace(/-/g, '');
+          return bool;
+        };
+
+        var canTransition = testStyle('transition');
+
+        //
+        // Slide class
+        //
+        var Slide = function(node, idx) {
+          this._node = node;
+          if (idx >= 0) {
+            this._count = idx + 1;
+          }
+          if (this._node) {
+            addClass(this._node, 'slide distant-slide');
+          }
+          this._makeCounter();
+          this._makeBuildList();
+        };
+
+        Slide.prototype = {
+          _node: null,
+          _count: 0,
+          _buildList: [],
+          _visited: false,
+          _currentState: '',
+          _states: [ 'distant-slide', 'far-past',
+                     'past', 'current', 'future',
+                     'far-future', 'distant-slide' ],
+          setState: function(state) {
+            if (typeof state != 'string') {
+              state = this._states[state];
+            }
+            if (state == 'current' && !this._visited) {
+              this._visited = true;
+              this._makeBuildList();
+            }
+            removeClass(this._node, this._states);
+            addClass(this._node, state);
+            this._currentState = state;
+
+            // delay first auto run. Really wish this were in CSS.
+            /*
+            this._runAutos();
+            */
+            var _t = this;
+            setTimeout(function(){ _t._runAutos(); } , 400);
+
+            if (state == 'current') {
+              this._onLoad();
+            } else {
+              this._onUnload();
+            }
+          },
+          _onLoad: function() {
+            this._fireEvent('onload');
+            this._showFrames();
+          },
+          _onUnload: function() {
+            this._fireEvent('onunload');
+            this._hideFrames();
+          },
+          _fireEvent: function(name) {
+            var eventSrc = this._node.getAttribute(name);
+            if (eventSrc) {
+              eventSrc = '(function() { ' + eventSrc + ' })';
+              var fn = eval(eventSrc);
+              fn.call(this._node);
+            }
+          },
+          _showFrames: function() {
+            var frames = queryAll('iframe', this._node);
+            function show() {
+              frames.forEach(function(el) {
+                var _src = el.getAttribute('_src');
+                if (_src && _src.length) {
+                  el.src = _src;
+                }
+              });
+            }
+            setTimeout(show, 0);
+          },
+          _hideFrames: function() {
+            var frames = queryAll('iframe', this._node);
+            function hide() {
+              frames.forEach(function(el) {
+                var _src = el.getAttribute('_src');
+                if (_src && _src.length) {
+                  el.src = '';
+                }
+              });
+            }
+            setTimeout(hide, 250);
+          },
+          _makeCounter: function() {
+            if(!this._count || !this._node) { return; }
+            var c = doc.createElement('span');
+            c.textContent = this._count;
+            c.className = 'counter';
+            this._node.appendChild(c);
+          },
+          _makeBuildList: function() {
+            this._buildList = [];
+            if (disableBuilds) { return; }
+            if (this._node) {
+              this._buildList = queryAll('[data-build] > *', this._node);
+            }
+            this._buildList.forEach(function(el) {
+              addClass(el, 'to-build');
+            });
+          },
+          _runAutos: function() {
+            if (this._currentState != 'current') {
+              return;
+            }
+            // find the next auto, slice it out of the list, and run it
+            var idx = -1;
+            this._buildList.some(function(n, i) {
+              if (n.hasAttribute('data-auto')) {
+                idx = i;
+                return true;
+              }
+              return false;
+            });
+            if (idx >= 0) {
+              var elem = this._buildList.splice(idx, 1)[0];
+             
+              var _t = this;
+              if (canTransition) {
+                var l = function(evt) {
+                  elem.parentNode.removeEventListener('webkitTransitionEnd', l, false);
+                  elem.parentNode.removeEventListener('transitionend', l, false);  // moz
+                  elem.parentNode.removeEventListener('oTransitionEnd', l, false);
+                  _t._runAutos();
+                };
+                elem.parentNode.addEventListener('webkitTransitionEnd', l, false);
+                elem.parentNode.addEventListener('transitionend', l, false);
+                elem.parentNode.addEventListener('oTransitionEnd', l, false);
+                removeClass(elem, 'to-build');
+              } else {
+                setTimeout(function() {
+                  removeClass(elem, 'to-build');
+                  _t._runAutos();
+                }, 400);
+              }
+            }
+          },
+          buildNext: function() {
+            if (!this._buildList.length) {
+              return false;
+            }
+            removeClass(this._buildList.shift(), 'to-build');
+            return true;
+          },
+        };
+
+        //
+        // SlideShow class
+        //
+        var SlideShow = function(slides) {
+          this._slides = (slides || []).map(function(el, idx) {
+            return new Slide(el, idx);
+          });
+          var h = window.location.hash;
+          try {
+            this.current = h;
+          } catch (e) { /* squeltch */ }
+          this.current = (!this.current) ? "landing-slide" : this.current.replace('#', '');
+          if (!query('#' + this.current)) {
+            // if this happens is very likely that someone is coming from
+            // a link with the old permalink format, i.e. #slide24
+            alert('The format of the permalinks have recently changed. If you are coming ' +
+                   'here from an old external link it\'s very likely you will land to the wrong slide');
+            this.current = "landing-slide";
+          }
+          var _t = this;
+          doc.addEventListener('keydown', 
+              function(e) { _t.handleKeys(e); }, false);
+          doc.addEventListener('touchstart', 
+              function(e) { _t.handleTouchStart(e); }, false);
+          doc.addEventListener('touchend', 
+              function(e) { _t.handleTouchEnd(e); }, false);
+          window.addEventListener('popstate', 
+              function(e) { if (e.state) { _t.go(e.state); } }, false);
+          query('#left-init-key').addEventListener('click',
+              function() { _t.next(); }, false);
+          this._update();
+        };
+
+        SlideShow.prototype = {
+          _presentationCounter: query('#presentation-counter'),
+          _slides: [],
+          _getCurrentIndex: function() {
+            var me = this;
+            var slideCount = null;
+            queryAll('.slide').forEach(function(slide, i) {
+              if (slide.id == me.current) {
+                slideCount = i;
+              }
+            });
+            return slideCount + 1;  
+          },
+          _update: function(dontPush) {
+            // in order to delay the time where the counter shows the slide number we check if 
+            // the slides are already loaded (so we show the loading... instead)
+            // the technique to test visibility is taken from here
+            // http://stackoverflow.com/questions/704758/how-to-check-if-an-element-is-really-visible-with-javascript
+            var docElem = document.documentElement;
+            var elem = document.elementFromPoint( docElem.clientWidth / 2, docElem.clientHeight / 2);
+            var currentIndex = this._getCurrentIndex();
+            if (elem && elem.className != 'presentation') {
+                this._presentationCounter.textContent = currentIndex;
+            }
+            if (history.pushState) {
+              if (!dontPush) {
+                history.replaceState(this.current, 'Slide ' + this.current, '#' + this.current);
+              }
+            } else {
+              window.location.hash = this.current;
+            }
+            for (var x = currentIndex-1; x < currentIndex + 7; x++) {
+              if (this._slides[x-4]) {
+                this._slides[x-4].setState(Math.max(0, x-currentIndex));
+              }
+            }
+          },
+
+          current: 0,
+          next: function() {
+            if (!this._slides[this._getCurrentIndex() - 1].buildNext()) {
+              var next = query('#' + this.current + ' + .slide');
+              this.current = (next) ? next.id : this.current;
+              this._update();
+            }
+          },
+          prev: function() {
+            var prev = query('.slide:nth-child(' + (this._getCurrentIndex() - 1) + ')');
+            this.current = (prev) ? prev.id : this.current;
+            this._update();
+          },
+          go: function(slideId) {
+            this.current = slideId;
+            this._update(true);
+          },
+
+          _notesOn: false,
+          showNotes: function() {
+            var isOn = this._notesOn = !this._notesOn;
+            queryAll('.notes').forEach(function(el) {
+              el.style.display = (notesOn) ? 'block' : 'none';
+            });
+          },
+          switch3D: function() {
+            toggleClass(document.body, 'three-d');
+          },
+          toggleHightlight: function() {
+            var link = query('#prettify-link');
+            link.disabled = !(link.disabled);
+            sessionStorage['highlightOn'] = !link.disabled;
+          },
+          changeTheme: function() {
+            var linkEls = queryAll('link.theme');
+            var sheetIndex = 0;
+            linkEls.forEach(function(stylesheet, i) {
+              if (!stylesheet.disabled) {
+                sheetIndex = i;
+              }
+            });
+            linkEls[sheetIndex].disabled = true;
+            linkEls[(sheetIndex + 1) % linkEls.length].disabled = false;
+            sessionStorage['theme'] = linkEls[(sheetIndex + 1) % linkEls.length].href;
+          },
+          handleKeys: function(e) {
+            
+            if (/^(input|textarea)$/i.test(e.target.nodeName) || e.target.isContentEditable) {
+              return;
+            }
+            
+            switch (e.keyCode) {
+              case 37: // left arrow
+                this.prev(); break;
+              case 39: // right arrow
+              case 32: // space
+                this.next(); break;
+              case 50: // 2
+                this.showNotes(); break;
+              case 51: // 3
+                this.switch3D(); break;
+              case 72: // H
+                this.toggleHightlight(); break;
+              case 84: // T
+                this.changeTheme(); break;
+            }
+          },
+          _touchStartX: 0,
+          handleTouchStart: function(e) {
+            this._touchStartX = e.touches[0].pageX;
+          },
+          handleTouchEnd: function(e) {
+            var delta = this._touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (delta > SWIPE_SIZE) {
+              this.next();
+            } else if (delta< -SWIPE_SIZE) {
+              this.prev();
+            }
+          },
+        };
+        
+        // load highlight setting from session storage, if available.
+        // session storage can only store strings so we have to assume type coercion
+        // for the boolean logic here
+        query('#prettify-link').disabled = !(sessionStorage['highlightOn'] == 'true');
+
+        // disable style theme stylesheets
+        var linkEls = queryAll('link.theme');
+        var stylesheetPath = sessionStorage['theme'] || 'css/default.css';
+        linkEls.forEach(function(stylesheet) {
+          stylesheet.disabled = !(stylesheet.href.indexOf(stylesheetPath) != -1);
+        });
+        
+        // Initialize
+        var slideshow = new SlideShow(queryAll('.slide'));
+
+        document.addEventListener('DOMContentLoaded', function() {
+          query('.slides').style.display = 'block';
+        }, false);
+
+        queryAll('pre').forEach(function(el) {
+          addClass(el, 'prettyprint');
+        });
+
+      })();
+    </script>
+
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+    <script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+
+    <script src="./media/prettify.js" onload="prettyPrint();" defer=""></script>
+    <script src="./media/js"></script><script src="./media/main.js" type="text/javascript"></script>
+    <script>
+      // Check if new appcache is available, load it, and reload page.
+      if (window.applicationCache) {
+        window.applicationCache.addEventListener('updateready', function(e) {
+          if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+            window.applicationCache.swapCache();
+            if (confirm('A new version of this site is available. Load it?')) {
+              window.location.reload();
+            }
+          }
+        }, false);
+      }
+
+    </script>
+  
+</body></html>

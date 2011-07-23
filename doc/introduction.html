@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="XMPPWebID Certificate Generator v0.1 documentation" href="index.html" />
+    <link rel="next" title="Installing XMPPWebID" href="install.html" />
     <link rel="prev" title="Welcome to XMPPWebID Certificate Generator’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installing XMPPWebID"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to XMPPWebID Certificate Generator’s documentation!"
              accesskey="P">previous</a> |</li>
@@ -48,10 +52,24 @@
 <span id="ref-introduction"></span><h1>About XMPPWebID<a class="headerlink" href="#about-xmppwebid" title="Permalink to this headline">¶</a></h1>
 <p>XMPPWebID is an project intended to add <a class="reference external" href="http://www.w3.org/2005/Incubator/webid/spec/">WebID</a> authentication to the <a class="reference external" href="http://xmpp.org/">XMPP</a>
 protocol.</p>
+<p>Currently, it&#8217;s composed by:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/xmppwebid/xmppwebid/tree/master/python-xmppwebid">python-xmppwebid</a>  python functions to create and validate XMPPWebID-enabled certificates</li>
+<li><a class="reference external" href="https://github.com/xmppwebid/xmppwebid/tree/master/django-xmppwebid-provider">django-xmppwebid-provider</a> a <a class="reference external" href="http://djangoproject.com/">Django</a>  webapp that creates an XMPP account and generates a certificate that can be installed in a XMPP client or browser</li>
+</ul>
+<p>To use your certificate in XMPP (Jabber) you would need:&lt;/p&gt;</p>
+<ul class="simple">
+<li>a client that supports user certificates (currently <a class="reference external" href="http://gajim.org/">Gajim</a> v0.14)</li>
+<li>and a Jabber server software that supports SASL EXTERNAL authentication (<a class="reference external" href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>)</li>
+</ul>
+<p>Coming soon...</p>
+<ul class="simple">
+<li>django-webid-auth:  a Django middleware to provide WebID autentication</li>
+<li>django-webid-profile: a Django webapp to generate a WebID profile and URI</li>
+</ul>
 <div class="section" id="technologies">
 <h2>Technologies<a class="headerlink" href="#technologies" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>XMPP protocol</li>
 <li>WebID for authentication</li>
 <li><a class="reference external" href="http://xmlns.com/foaf/spec/">FOAF</a> ontology for the user WebID profile</li>
@@ -62,21 +80,23 @@ protocol.</p>
 <li>XMPP <a class="reference external" href="http://xmpp.org/extensions/xep-0178.html">SASL EXTERNAL</a> authentication mechanism</li>
 <li><a class="reference external" href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> to extract WebID URI, public keys and Jabber account</li>
 </ul>
-</div></blockquote>
 </div>
-<div class="section" id="xmppwebid-certificate-generator">
-<h2>XMPPWebID certificate generator<a class="headerlink" href="#xmppwebid-certificate-generator" title="Permalink to this headline">¶</a></h2>
-<p>XMPPWebID certificate generator is an <a class="reference external" href="http://djangoproject.com/">Django</a> app intended to generate valid
-certificates for HTPP and XMPP.</p>
-<p>It creates XMPP account and generates the certificate that is installed in your
-browser and can also be installed in a XMPP client.</p>
-<p>To use your certificate in XMPP (Jabber) you would need a client that supports
-user certificates (currently <a class="reference external" href="http://gajim.org/">Gajim</a> v0.14) and a Jabber server software that
-supports SASL EXTERNAL authentication (<a class="reference external" href="http://codex.xiaoka.com/wiki/jabberd2:start">Jabberd</a>).</p>
+<div class="section" id="publications">
+<h2>Publications<a class="headerlink" href="#publications" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="../papers/fsw2011/fsw2011-xmppwebid.html">WebID-enabled XMPP</a>: a bridge to the social web on your IM and beyond, <a class="reference external" href="../slides/fsw2011/index.html">slides</a> (Paper at <a class="reference external" href="http://d-cent.org/fsw2011/">FSW2011</a>)</li>
+</ul>
+</div>
 <div class="section" id="install">
-<h3>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
-<p>To install XMPPWebID  certificate generator see <a class="reference internal" href="install.html#ref-install"><em>Installing XMPPWebID certificate generator in Debian/Ubuntu</em></a></p>
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="install.html#ref-install"><em>Installing XMPPWebID</em></a></p>
 </div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This documentation: ref:<cite>ref-introduction</cite></li>
+<li><a class="reference external" href="../python-xmppwebid-doc/index.html">python-xmppwebid API</a></li>
+</ul>
 </div>
 <div class="section" id="download">
 <h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
@@ -97,8 +117,7 @@ supports SASL EXTERNAL authentication (<a class="reference external" href="http:
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
-<p>XMPPWebID is copyright 2010 by xmppwebid
-and is covered by the <a class="reference external" href="http://git-scm.com">GPLv3</a></p>
+<p>XMPPWebID is copyright 2010 by xmppwebid and is covered by the <a class="reference external" href="http://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a></p>
 </div>
 <div class="section" id="contact">
 <h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
@@ -120,10 +139,9 @@ and is covered by the <a class="reference external" href="http://git-scm.com">GP
   <ul>
 <li><a class="reference internal" href="#">About XMPPWebID</a><ul>
 <li><a class="reference internal" href="#technologies">Technologies</a></li>
-<li><a class="reference internal" href="#xmppwebid-certificate-generator">XMPPWebID certificate generator</a><ul>
+<li><a class="reference internal" href="#publications">Publications</a></li>
 <li><a class="reference internal" href="#install">Install</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#download">Download</a></li>
 <li><a class="reference internal" href="#bugs-and-features">Bugs and features</a></li>
 <li><a class="reference internal" href="#license">License</a></li>
@@ -136,6 +154,9 @@ and is covered by the <a class="reference external" href="http://git-scm.com">GP
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to XMPPWebID Certificate Generator&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installing XMPPWebID</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/introduction.txt"
@@ -164,6 +185,9 @@ and is covered by the <a class="reference external" href="http://git-scm.com">GP
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installing XMPPWebID"
+             >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to XMPPWebID Certificate Generator’s documentation!"
              >previous</a> |</li>
